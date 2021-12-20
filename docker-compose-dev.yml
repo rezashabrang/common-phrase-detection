@@ -1,0 +1,12 @@
+version: "3.7"
+
+services:
+    stop-word:
+        build:
+            dockerfile: Dockerfile.dev
+            context: .
+        image: stop-words
+        container_name: stop_word_counter
+        volumes:
+            - .:/app
+        environment:
