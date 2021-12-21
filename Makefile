@@ -3,7 +3,7 @@ SHELL := /usr/bin/env bash
 PYTHON := python
 
 #* Docker variables
-IMAGE := personnel_reporter
+IMAGE := phrase_counter
 VERSION := latest
 
 #* Poetry
@@ -30,8 +30,8 @@ pre-commit-install:
 .PHONY: codestyle
 codestyle:
 	poetry run pyupgrade --exit-zero-even-if-changed --py38-plus **/*.py
-	poetry run isort personnel_reporter/*.py --settings-path pyproject.toml ./
-	poetry run black personnel_reporter/*.py --config pyproject.toml ./
+	poetry run isort phrase_counter/*.py --settings-path pyproject.toml ./
+	poetry run black phrase_counter/*.py --config pyproject.toml ./
 
 .PHONY: formatting
 formatting: codestyle
@@ -51,14 +51,14 @@ release:
 
 .PHONY: coverage
 coverage:
-	poetry run pytest --cov-report html --cov personnel_reporter tests/
+	poetry run pytest --cov-report html --cov phrase_counter tests/
 	coverage-badge -o assets/images/coverage.svg -f
 
 .PHONY: check-codestyle
 check-codestyle:
-	poetry run isort --diff --check-only --settings-path pyproject.toml personnel_reporter/*.py tests/*/*.py
-	poetry run black --diff --check --config pyproject.toml personnel_reporter/*.py tests/*/*.py
-	poetry run darglint --verbosity 2 personnel_reporter tests
+	poetry run isort --diff --check-only --settings-path pyproject.toml phrase_counter/*.py tests/*/*.py
+	poetry run black --diff --check --config pyproject.toml phrase_counter/*.py tests/*/*.py
+	poetry run darglint --verbosity 2 phrase_counter tests
 
 .PHONY: mypy
 mypy:
@@ -68,7 +68,7 @@ mypy:
 check-safety:
 	poetry check
 	poetry run safety check --full-report
-	poetry run bandit -ll --recursive personnel_reporter tests
+	poetry run bandit -ll --recursive phrase_counter tests
 
 .PHONY: lint
 lint: test check-codestyle mypy check-safety
@@ -101,3 +101,15 @@ build-remove:
 
 .PHONY: clean-all
 clean-all: pycache-remove build-remove docker-remove
+
+.PHONY: complexity
+complexity:
+	poetry run radon cc phrase_counter --total-average
+
+.PHONY: maintainability
+maintainability:
+	poetry run radon mi phrase_counter
+
+.PHONY: interrogate
+interrogate:
+	poetry run interrogate -v phrase_counter
