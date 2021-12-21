@@ -4,7 +4,7 @@ requires = ["poetry_core>=1.0.0"]
 build-backend = "poetry.core.masonry.api"
 
 [tool.poetry]
-name = "stop_word_counter"
+name = "common_phrase_detection"
 version = "0.1.0"
 description = "Counting stop words."
 readme = "README.md"
@@ -140,10 +140,10 @@ addopts = [
 
 
 [tool.coverage.run]
-source = ['stop_counter', 'spec']
+source = ['phrase_counter', 'tests']
 
 [coverage.paths]
-source = 'stop_counter'
+source = 'phrase_counter'
 
 [coverage.run]
 branch = true

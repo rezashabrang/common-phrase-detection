@@ -9,11 +9,6 @@ python-versions = "*"
 [package.dependencies]
 packaging = "*"
 
-[package.source]
-type = "legacy"
-url = "https://repo.bitas.dev/repository/bitas-pip/simple"
-reference = "repos"
-
 [[package]]
 name = "astroid"
 version = "2.9.0"
@@ -27,11 +22,6 @@ lazy-object-proxy = ">=1.4.0"
 typing-extensions = {version = ">=3.10", markers = "python_version < \"3.10\""}
 wrapt = ">=1.11,<1.14"
 
-[package.source]
-type = "legacy"
-url = "https://repo.bitas.dev/repository/bitas-pip/simple"
-reference = "repos"
-
 [[package]]
 name = "atomicwrites"
 version = "1.4.0"
@@ -39,11 +29,6 @@ description = "Atomic file writes."
 category = "dev"
 optional = false
 python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*"
-
-[package.source]
-type = "legacy"
-url = "https://repo.bitas.dev/repository/bitas-pip/simple"
-reference = "repos"
 
 [[package]]
 name = "attrs"
@@ -59,11 +44,6 @@ docs = ["furo", "sphinx", "zope.interface", "sphinx-notfound-page"]
 tests = ["coverage[toml] (>=5.0.2)", "hypothesis", "pympler", "pytest (>=4.3.0)", "six", "mypy", "pytest-mypy-plugins", "zope.interface"]
 tests_no_zope = ["coverage[toml] (>=5.0.2)", "hypothesis", "pympler", "pytest (>=4.3.0)", "six", "mypy", "pytest-mypy-plugins"]
 
-[package.source]
-type = "legacy"
-url = "https://repo.bitas.dev/repository/bitas-pip/simple"
-reference = "repos"
-
 [[package]]
 name = "backports.entry-points-selectable"
 version = "1.1.1"
@@ -75,11 +55,6 @@ python-versions = ">=2.7"
 [package.extras]
 docs = ["sphinx", "jaraco.packaging (>=8.2)", "rst.linker (>=1.9)"]
 testing = ["pytest", "pytest-flake8", "pytest-cov", "pytest-black (>=0.3.7)", "pytest-mypy", "pytest-checkdocs (>=2.4)", "pytest-enabler (>=1.0.1)"]
-
-[package.source]
-type = "legacy"
-url = "https://repo.bitas.dev/repository/bitas-pip/simple"
-reference = "repos"
 
 [[package]]
 name = "bandit"
@@ -95,11 +70,6 @@ GitPython = ">=1.0.1"
 PyYAML = ">=5.3.1"
 stevedore = ">=1.20.0"
 
-[package.source]
-type = "legacy"
-url = "https://repo.bitas.dev/repository/bitas-pip/simple"
-reference = "repos"
-
 [[package]]
 name = "beautifulsoup4"
 version = "4.10.0"
@@ -114,11 +84,6 @@ soupsieve = ">1.2"
 [package.extras]
 html5lib = ["html5lib"]
 lxml = ["lxml"]
-
-[package.source]
-type = "legacy"
-url = "https://repo.bitas.dev/repository/bitas-pip/simple"
-reference = "repos"
 
 [[package]]
 name = "bitas-utils"
@@ -166,11 +131,6 @@ jupyter = ["ipython (>=7.8.0)", "tokenize-rt (>=3.2.0)"]
 python2 = ["typed-ast (>=1.4.3)"]
 uvloop = ["uvloop (>=0.15.2)"]
 
-[package.source]
-type = "legacy"
-url = "https://repo.bitas.dev/repository/bitas-pip/simple"
-reference = "repos"
-
 [[package]]
 name = "certifi"
 version = "2021.10.8"
@@ -179,11 +139,6 @@ category = "dev"
 optional = false
 python-versions = "*"
 
-[package.source]
-type = "legacy"
-url = "https://repo.bitas.dev/repository/bitas-pip/simple"
-reference = "repos"
-
 [[package]]
 name = "cfgv"
 version = "3.3.1"
@@ -191,11 +146,6 @@ description = "Validate configuration and produce human readable error messages.
 category = "dev"
 optional = false
 python-versions = ">=3.6.1"
-
-[package.source]
-type = "legacy"
-url = "https://repo.bitas.dev/repository/bitas-pip/simple"
-reference = "repos"
 
 [[package]]
 name = "charset-normalizer"
@@ -208,11 +158,6 @@ python-versions = ">=3.5.0"
 [package.extras]
 unicode_backport = ["unicodedata2"]
 
-[package.source]
-type = "legacy"
-url = "https://repo.bitas.dev/repository/bitas-pip/simple"
-reference = "repos"
-
 [[package]]
 name = "click"
 version = "8.0.3"
@@ -224,11 +169,6 @@ python-versions = ">=3.6"
 [package.dependencies]
 colorama = {version = "*", markers = "platform_system == \"Windows\""}
 
-[package.source]
-type = "legacy"
-url = "https://repo.bitas.dev/repository/bitas-pip/simple"
-reference = "repos"
-
 [[package]]
 name = "colorama"
 version = "0.4.4"
@@ -236,11 +176,6 @@ description = "Cross-platform colored terminal text."
 category = "dev"
 optional = false
 python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*, !=3.4.*"
-
-[package.source]
-type = "legacy"
-url = "https://repo.bitas.dev/repository/bitas-pip/simple"
-reference = "repos"
 
 [[package]]
 name = "coverage"
@@ -256,11 +191,6 @@ tomli = {version = "*", optional = true, markers = "extra == \"toml\""}
 [package.extras]
 toml = ["tomli"]
 
-[package.source]
-type = "legacy"
-url = "https://repo.bitas.dev/repository/bitas-pip/simple"
-reference = "repos"
-
 [[package]]
 name = "coverage-badge"
 version = "1.1.0"
@@ -272,11 +202,6 @@ python-versions = "*"
 [package.dependencies]
 coverage = "*"
 
-[package.source]
-type = "legacy"
-url = "https://repo.bitas.dev/repository/bitas-pip/simple"
-reference = "repos"
-
 [[package]]
 name = "darglint"
 version = "1.8.1"
@@ -284,11 +209,6 @@ description = "A utility for ensuring Google-style docstrings stay up to date wi
 category = "dev"
 optional = false
 python-versions = ">=3.6,<4.0"
-
-[package.source]
-type = "legacy"
-url = "https://repo.bitas.dev/repository/bitas-pip/simple"
-reference = "repos"
 
 [[package]]
 name = "datetime"
@@ -302,11 +222,6 @@ python-versions = "*"
 pytz = "*"
 "zope.interface" = "*"
 
-[package.source]
-type = "legacy"
-url = "https://repo.bitas.dev/repository/bitas-pip/simple"
-reference = "repos"
-
 [[package]]
 name = "distlib"
 version = "0.3.4"
@@ -314,11 +229,6 @@ description = "Distribution utilities"
 category = "dev"
 optional = false
 python-versions = "*"
-
-[package.source]
-type = "legacy"
-url = "https://repo.bitas.dev/repository/bitas-pip/simple"
-reference = "repos"
 
 [[package]]
 name = "docstr-coverage"
@@ -336,11 +246,6 @@ PyYAML = "*"
 lint = ["flake8 (==3.9.2)", "black (==21.5b2)", "isort (==5.9.0)"]
 test = ["pytest (==5.4.2)", "pytest-mock (==3.4.0)"]
 
-[package.source]
-type = "legacy"
-url = "https://repo.bitas.dev/repository/bitas-pip/simple"
-reference = "repos"
-
 [[package]]
 name = "dparse"
 version = "0.5.1"
@@ -357,11 +262,6 @@ toml = "*"
 [package.extras]
 pipenv = ["pipenv"]
 
-[package.source]
-type = "legacy"
-url = "https://repo.bitas.dev/repository/bitas-pip/simple"
-reference = "repos"
-
 [[package]]
 name = "filelock"
 version = "3.4.0"
@@ -373,11 +273,6 @@ python-versions = ">=3.6"
 [package.extras]
 docs = ["furo (>=2021.8.17b43)", "sphinx (>=4.1)", "sphinx-autodoc-typehints (>=1.12)"]
 testing = ["covdefaults (>=1.2.0)", "coverage (>=4)", "pytest (>=4)", "pytest-cov", "pytest-timeout (>=1.4.2)"]
-
-[package.source]
-type = "legacy"
-url = "https://repo.bitas.dev/repository/bitas-pip/simple"
-reference = "repos"
 
 [[package]]
 name = "flake8"
@@ -392,11 +287,6 @@ mccabe = ">=0.6.0,<0.7.0"
 pycodestyle = ">=2.7.0,<2.8.0"
 pyflakes = ">=2.3.0,<2.4.0"
 
-[package.source]
-type = "legacy"
-url = "https://repo.bitas.dev/repository/bitas-pip/simple"
-reference = "repos"
-
 [[package]]
 name = "future"
 version = "0.18.2"
@@ -404,11 +294,6 @@ description = "Clean single-source support for Python 3 and 2"
 category = "dev"
 optional = false
 python-versions = ">=2.6, !=3.0.*, !=3.1.*, !=3.2.*"
-
-[package.source]
-type = "legacy"
-url = "https://repo.bitas.dev/repository/bitas-pip/simple"
-reference = "repos"
 
 [[package]]
 name = "gitdb"
@@ -420,11 +305,6 @@ python-versions = ">=3.6"
 
 [package.dependencies]
 smmap = ">=3.0.1,<6"
-
-[package.source]
-type = "legacy"
-url = "https://repo.bitas.dev/repository/bitas-pip/simple"
-reference = "repos"
 
 [[package]]
 name = "gitpython"
@@ -438,11 +318,6 @@ python-versions = ">=3.7"
 gitdb = ">=4.0.1,<5"
 typing-extensions = {version = ">=3.7.4.3", markers = "python_version < \"3.10\""}
 
-[package.source]
-type = "legacy"
-url = "https://repo.bitas.dev/repository/bitas-pip/simple"
-reference = "repos"
-
 [[package]]
 name = "identify"
 version = "2.4.0"
@@ -454,11 +329,6 @@ python-versions = ">=3.6.1"
 [package.extras]
 license = ["ukkonen"]
 
-[package.source]
-type = "legacy"
-url = "https://repo.bitas.dev/repository/bitas-pip/simple"
-reference = "repos"
-
 [[package]]
 name = "idna"
 version = "3.3"
@@ -467,11 +337,6 @@ category = "dev"
 optional = false
 python-versions = ">=3.5"
 
-[package.source]
-type = "legacy"
-url = "https://repo.bitas.dev/repository/bitas-pip/simple"
-reference = "repos"
-
 [[package]]
 name = "iniconfig"
 version = "1.1.1"
@@ -479,11 +344,6 @@ description = "iniconfig: brain-dead simple config-ini parsing"
 category = "dev"
 optional = false
 python-versions = "*"
-
-[package.source]
-type = "legacy"
-url = "https://repo.bitas.dev/repository/bitas-pip/simple"
-reference = "repos"
 
 [[package]]
 name = "isort"
@@ -497,15 +357,10 @@ python-versions = ">=3.6.1,<4.0"
 colorama = {version = ">=0.4.3,<0.5.0", optional = true, markers = "extra == \"colors\""}
 
 [package.extras]
-colors = ["colorama (>=0.4.3,<0.5.0)"]
-requirements_deprecated_finder = ["pip-api", "pipreqs"]
 pipfile_deprecated_finder = ["pipreqs", "requirementslib"]
+requirements_deprecated_finder = ["pipreqs", "pip-api"]
+colors = ["colorama (>=0.4.3,<0.5.0)"]
 plugins = ["setuptools"]
-
-[package.source]
-type = "legacy"
-url = "https://repo.bitas.dev/repository/bitas-pip/simple"
-reference = "repos"
 
 [[package]]
 name = "jinja2"
@@ -521,11 +376,6 @@ MarkupSafe = ">=0.23"
 [package.extras]
 i18n = ["Babel (>=0.8)"]
 
-[package.source]
-type = "legacy"
-url = "https://repo.bitas.dev/repository/bitas-pip/simple"
-reference = "repos"
-
 [[package]]
 name = "khayyam"
 version = "3.0.17"
@@ -534,11 +384,6 @@ category = "main"
 optional = false
 python-versions = "*"
 
-[package.source]
-type = "legacy"
-url = "https://repo.bitas.dev/repository/bitas-pip/simple"
-reference = "repos"
-
 [[package]]
 name = "lazy-object-proxy"
 version = "1.7.1"
@@ -546,11 +391,6 @@ description = "A fast and thorough lazy object proxy."
 category = "dev"
 optional = false
 python-versions = ">=3.6"
-
-[package.source]
-type = "legacy"
-url = "https://repo.bitas.dev/repository/bitas-pip/simple"
-reference = "repos"
 
 [[package]]
 name = "mando"
@@ -566,11 +406,6 @@ six = "*"
 [package.extras]
 restructuredText = ["rst2ansi"]
 
-[package.source]
-type = "legacy"
-url = "https://repo.bitas.dev/repository/bitas-pip/simple"
-reference = "repos"
-
 [[package]]
 name = "markupsafe"
 version = "2.0.1"
@@ -579,11 +414,6 @@ category = "dev"
 optional = false
 python-versions = ">=3.6"
 
-[package.source]
-type = "legacy"
-url = "https://repo.bitas.dev/repository/bitas-pip/simple"
-reference = "repos"
-
 [[package]]
 name = "mccabe"
 version = "0.6.1"
@@ -591,11 +421,6 @@ description = "McCabe checker, plugin for flake8"
 category = "dev"
 optional = false
 python-versions = "*"
-
-[package.source]
-type = "legacy"
-url = "https://repo.bitas.dev/repository/bitas-pip/simple"
-reference = "repos"
 
 [[package]]
 name = "mypy"
@@ -614,11 +439,6 @@ typing-extensions = ">=3.7.4"
 dmypy = ["psutil (>=4.0)"]
 python2 = ["typed-ast (>=1.4.0,<1.5.0)"]
 
-[package.source]
-type = "legacy"
-url = "https://repo.bitas.dev/repository/bitas-pip/simple"
-reference = "repos"
-
 [[package]]
 name = "mypy-extensions"
 version = "0.4.3"
@@ -627,11 +447,6 @@ category = "dev"
 optional = false
 python-versions = "*"
 
-[package.source]
-type = "legacy"
-url = "https://repo.bitas.dev/repository/bitas-pip/simple"
-reference = "repos"
-
 [[package]]
 name = "nodeenv"
 version = "1.6.0"
@@ -639,11 +454,6 @@ description = "Node.js virtual environment builder"
 category = "dev"
 optional = false
 python-versions = "*"
-
-[package.source]
-type = "legacy"
-url = "https://repo.bitas.dev/repository/bitas-pip/simple"
-reference = "repos"
 
 [[package]]
 name = "packaging"
@@ -656,11 +466,6 @@ python-versions = ">=3.6"
 [package.dependencies]
 pyparsing = ">=2.0.2,<3.0.5 || >3.0.5"
 
-[package.source]
-type = "legacy"
-url = "https://repo.bitas.dev/repository/bitas-pip/simple"
-reference = "repos"
-
 [[package]]
 name = "pathspec"
 version = "0.9.0"
@@ -669,11 +474,6 @@ category = "dev"
 optional = false
 python-versions = "!=3.0.*,!=3.1.*,!=3.2.*,!=3.3.*,!=3.4.*,>=2.7"
 
-[package.source]
-type = "legacy"
-url = "https://repo.bitas.dev/repository/bitas-pip/simple"
-reference = "repos"
-
 [[package]]
 name = "pbr"
 version = "5.8.0"
@@ -681,11 +481,6 @@ description = "Python Build Reasonableness"
 category = "dev"
 optional = false
 python-versions = ">=2.6"
-
-[package.source]
-type = "legacy"
-url = "https://repo.bitas.dev/repository/bitas-pip/simple"
-reference = "repos"
 
 [[package]]
 name = "platformdirs"
@@ -699,11 +494,6 @@ python-versions = ">=3.6"
 docs = ["Sphinx (>=4)", "furo (>=2021.7.5b38)", "proselint (>=0.10.2)", "sphinx-autodoc-typehints (>=1.12)"]
 test = ["appdirs (==1.4.4)", "pytest (>=6)", "pytest-cov (>=2.7)", "pytest-mock (>=3.6)"]
 
-[package.source]
-type = "legacy"
-url = "https://repo.bitas.dev/repository/bitas-pip/simple"
-reference = "repos"
-
 [[package]]
 name = "pluggy"
 version = "1.0.0"
@@ -715,11 +505,6 @@ python-versions = ">=3.6"
 [package.extras]
 dev = ["pre-commit", "tox"]
 testing = ["pytest", "pytest-benchmark"]
-
-[package.source]
-type = "legacy"
-url = "https://repo.bitas.dev/repository/bitas-pip/simple"
-reference = "repos"
 
 [[package]]
 name = "pre-commit"
@@ -737,11 +522,6 @@ pyyaml = ">=5.1"
 toml = "*"
 virtualenv = ">=20.0.8"
 
-[package.source]
-type = "legacy"
-url = "https://repo.bitas.dev/repository/bitas-pip/simple"
-reference = "repos"
-
 [[package]]
 name = "py"
 version = "1.11.0"
@@ -749,11 +529,6 @@ description = "library with cross-python path, ini-parsing, io, code, log facili
 category = "dev"
 optional = false
 python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*, !=3.4.*"
-
-[package.source]
-type = "legacy"
-url = "https://repo.bitas.dev/repository/bitas-pip/simple"
-reference = "repos"
 
 [[package]]
 name = "pybadges"
@@ -771,11 +546,6 @@ requests = ">=2.9.0,<3"
 dev = ["fonttools (>=3.26)", "nox", "Pillow (>=5)", "pytest (>=3.6)"]
 pil-measurement = ["Pillow (>=5,<6)"]
 
-[package.source]
-type = "legacy"
-url = "https://repo.bitas.dev/repository/bitas-pip/simple"
-reference = "repos"
-
 [[package]]
 name = "pycodestyle"
 version = "2.7.0"
@@ -783,11 +553,6 @@ description = "Python style guide checker"
 category = "dev"
 optional = false
 python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*"
-
-[package.source]
-type = "legacy"
-url = "https://repo.bitas.dev/repository/bitas-pip/simple"
-reference = "repos"
 
 [[package]]
 name = "pydocstyle"
@@ -803,11 +568,6 @@ snowballstemmer = "*"
 [package.extras]
 toml = ["toml"]
 
-[package.source]
-type = "legacy"
-url = "https://repo.bitas.dev/repository/bitas-pip/simple"
-reference = "repos"
-
 [[package]]
 name = "pyflakes"
 version = "2.3.1"
@@ -815,11 +575,6 @@ description = "passive checker of Python programs"
 category = "dev"
 optional = false
 python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*"
-
-[package.source]
-type = "legacy"
-url = "https://repo.bitas.dev/repository/bitas-pip/simple"
-reference = "repos"
 
 [[package]]
 name = "pylint"
@@ -838,11 +593,6 @@ platformdirs = ">=2.2.0"
 toml = ">=0.9.2"
 typing-extensions = {version = ">=3.10.0", markers = "python_version < \"3.10\""}
 
-[package.source]
-type = "legacy"
-url = "https://repo.bitas.dev/repository/bitas-pip/simple"
-reference = "repos"
-
 [[package]]
 name = "pyparsing"
 version = "3.0.6"
@@ -853,11 +603,6 @@ python-versions = ">=3.6"
 
 [package.extras]
 diagrams = ["jinja2", "railroad-diagrams"]
-
-[package.source]
-type = "legacy"
-url = "https://repo.bitas.dev/repository/bitas-pip/simple"
-reference = "repos"
 
 [[package]]
 name = "pytest"
@@ -880,11 +625,6 @@ toml = "*"
 [package.extras]
 testing = ["argcomplete", "hypothesis (>=3.56)", "mock", "nose", "requests", "xmlschema"]
 
-[package.source]
-type = "legacy"
-url = "https://repo.bitas.dev/repository/bitas-pip/simple"
-reference = "repos"
-
 [[package]]
 name = "pytest-cov"
 version = "3.0.0"
@@ -900,11 +640,6 @@ pytest = ">=4.6"
 [package.extras]
 testing = ["fields", "hunter", "process-tests", "six", "pytest-xdist", "virtualenv"]
 
-[package.source]
-type = "legacy"
-url = "https://repo.bitas.dev/repository/bitas-pip/simple"
-reference = "repos"
-
 [[package]]
 name = "pytest-html"
 version = "3.1.1"
@@ -917,11 +652,6 @@ python-versions = ">=3.6"
 pytest = ">=5.0,<6.0.0 || >6.0.0"
 pytest-metadata = "*"
 
-[package.source]
-type = "legacy"
-url = "https://repo.bitas.dev/repository/bitas-pip/simple"
-reference = "repos"
-
 [[package]]
 name = "pytest-metadata"
 version = "1.11.0"
@@ -932,11 +662,6 @@ python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*, !=3.4.*, !=3.5.*"
 
 [package.dependencies]
 pytest = ">=2.9.0"
-
-[package.source]
-type = "legacy"
-url = "https://repo.bitas.dev/repository/bitas-pip/simple"
-reference = "repos"
 
 [[package]]
 name = "python-dateutil"
@@ -949,11 +674,6 @@ python-versions = "!=3.0.*,!=3.1.*,!=3.2.*,>=2.7"
 [package.dependencies]
 six = ">=1.5"
 
-[package.source]
-type = "legacy"
-url = "https://repo.bitas.dev/repository/bitas-pip/simple"
-reference = "repos"
-
 [[package]]
 name = "pytz"
 version = "2021.3"
@@ -961,11 +681,6 @@ description = "World timezone definitions, modern and historical"
 category = "main"
 optional = false
 python-versions = "*"
-
-[package.source]
-type = "legacy"
-url = "https://repo.bitas.dev/repository/bitas-pip/simple"
-reference = "repos"
 
 [[package]]
 name = "pyupgrade"
@@ -978,11 +693,6 @@ python-versions = ">=3.6.1"
 [package.dependencies]
 tokenize-rt = ">=3.2.0"
 
-[package.source]
-type = "legacy"
-url = "https://repo.bitas.dev/repository/bitas-pip/simple"
-reference = "repos"
-
 [[package]]
 name = "pyyaml"
 version = "6.0"
@@ -990,11 +700,6 @@ description = "YAML parser and emitter for Python"
 category = "dev"
 optional = false
 python-versions = ">=3.6"
-
-[package.source]
-type = "legacy"
-url = "https://repo.bitas.dev/repository/bitas-pip/simple"
-reference = "repos"
 
 [[package]]
 name = "radon"
@@ -1008,11 +713,6 @@ python-versions = "*"
 colorama = {version = ">=0.4.1", markers = "python_version > \"3.4\""}
 future = "*"
 mando = ">=0.6,<0.7"
-
-[package.source]
-type = "legacy"
-url = "https://repo.bitas.dev/repository/bitas-pip/simple"
-reference = "repos"
 
 [[package]]
 name = "requests"
@@ -1032,11 +732,6 @@ urllib3 = ">=1.21.1,<1.27"
 socks = ["PySocks (>=1.5.6,!=1.5.7)", "win-inet-pton"]
 use_chardet_on_py3 = ["chardet (>=3.0.2,<5)"]
 
-[package.source]
-type = "legacy"
-url = "https://repo.bitas.dev/repository/bitas-pip/simple"
-reference = "repos"
-
 [[package]]
 name = "safety"
 version = "1.10.3"
@@ -1051,11 +746,6 @@ dparse = ">=0.5.1"
 packaging = "*"
 requests = "*"
 
-[package.source]
-type = "legacy"
-url = "https://repo.bitas.dev/repository/bitas-pip/simple"
-reference = "repos"
-
 [[package]]
 name = "six"
 version = "1.16.0"
@@ -1063,11 +753,6 @@ description = "Python 2 and 3 compatibility utilities"
 category = "main"
 optional = false
 python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*"
-
-[package.source]
-type = "legacy"
-url = "https://repo.bitas.dev/repository/bitas-pip/simple"
-reference = "repos"
 
 [[package]]
 name = "smmap"
@@ -1077,11 +762,6 @@ category = "dev"
 optional = false
 python-versions = ">=3.6"
 
-[package.source]
-type = "legacy"
-url = "https://repo.bitas.dev/repository/bitas-pip/simple"
-reference = "repos"
-
 [[package]]
 name = "snowballstemmer"
 version = "2.2.0"
@@ -1090,11 +770,6 @@ category = "dev"
 optional = false
 python-versions = "*"
 
-[package.source]
-type = "legacy"
-url = "https://repo.bitas.dev/repository/bitas-pip/simple"
-reference = "repos"
-
 [[package]]
 name = "soupsieve"
 version = "2.3.1"
@@ -1102,11 +777,6 @@ description = "A modern CSS selector implementation for Beautiful Soup."
 category = "main"
 optional = false
 python-versions = ">=3.6"
-
-[package.source]
-type = "legacy"
-url = "https://repo.bitas.dev/repository/bitas-pip/simple"
-reference = "repos"
 
 [[package]]
 name = "stevedore"
@@ -1119,11 +789,6 @@ python-versions = ">=3.6"
 [package.dependencies]
 pbr = ">=2.0.0,<2.1.0 || >2.1.0"
 
-[package.source]
-type = "legacy"
-url = "https://repo.bitas.dev/repository/bitas-pip/simple"
-reference = "repos"
-
 [[package]]
 name = "tokenize-rt"
 version = "4.2.1"
@@ -1131,11 +796,6 @@ description = "A wrapper around the stdlib `tokenize` which roundtrips."
 category = "dev"
 optional = false
 python-versions = ">=3.6.1"
-
-[package.source]
-type = "legacy"
-url = "https://repo.bitas.dev/repository/bitas-pip/simple"
-reference = "repos"
 
 [[package]]
 name = "toml"
@@ -1145,11 +805,6 @@ category = "dev"
 optional = false
 python-versions = ">=2.6, !=3.0.*, !=3.1.*, !=3.2.*"
 
-[package.source]
-type = "legacy"
-url = "https://repo.bitas.dev/repository/bitas-pip/simple"
-reference = "repos"
-
 [[package]]
 name = "tomli"
 version = "1.2.3"
@@ -1158,11 +813,6 @@ category = "dev"
 optional = false
 python-versions = ">=3.6"
 
-[package.source]
-type = "legacy"
-url = "https://repo.bitas.dev/repository/bitas-pip/simple"
-reference = "repos"
-
 [[package]]
 name = "typing-extensions"
 version = "4.0.1"
@@ -1170,11 +820,6 @@ description = "Backported and Experimental Type Hints for Python 3.6+"
 category = "dev"
 optional = false
 python-versions = ">=3.6"
-
-[package.source]
-type = "legacy"
-url = "https://repo.bitas.dev/repository/bitas-pip/simple"
-reference = "repos"
 
 [[package]]
 name = "urllib3"
@@ -1188,11 +833,6 @@ python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*, !=3.4.*, <4"
 brotli = ["brotlipy (>=0.6.0)"]
 secure = ["pyOpenSSL (>=0.14)", "cryptography (>=1.3.4)", "idna (>=2.0.0)", "certifi", "ipaddress"]
 socks = ["PySocks (>=1.5.6,!=1.5.7,<2.0)"]
-
-[package.source]
-type = "legacy"
-url = "https://repo.bitas.dev/repository/bitas-pip/simple"
-reference = "repos"
 
 [[package]]
 name = "virtualenv"
@@ -1213,11 +853,6 @@ six = ">=1.9.0,<2"
 docs = ["proselint (>=0.10.2)", "sphinx (>=3)", "sphinx-argparse (>=0.2.5)", "sphinx-rtd-theme (>=0.4.3)", "towncrier (>=21.3)"]
 testing = ["coverage (>=4)", "coverage-enable-subprocess (>=1)", "flaky (>=3)", "pytest (>=4)", "pytest-env (>=0.6.2)", "pytest-freezegun (>=0.4.1)", "pytest-mock (>=2)", "pytest-randomly (>=1)", "pytest-timeout (>=1)", "packaging (>=20.0)"]
 
-[package.source]
-type = "legacy"
-url = "https://repo.bitas.dev/repository/bitas-pip/simple"
-reference = "repos"
-
 [[package]]
 name = "wrapt"
 version = "1.13.3"
@@ -1225,11 +860,6 @@ description = "Module for decorators, wrappers and monkey patching."
 category = "dev"
 optional = false
 python-versions = "!=3.0.*,!=3.1.*,!=3.2.*,!=3.3.*,!=3.4.*,>=2.7"
-
-[package.source]
-type = "legacy"
-url = "https://repo.bitas.dev/repository/bitas-pip/simple"
-reference = "repos"
 
 [[package]]
 name = "zope.interface"
@@ -1244,15 +874,10 @@ docs = ["sphinx", "repoze.sphinx.autointerface"]
 test = ["coverage (>=5.0.3)", "zope.event", "zope.testing"]
 testing = ["coverage (>=5.0.3)", "zope.event", "zope.testing"]
 
-[package.source]
-type = "legacy"
-url = "https://repo.bitas.dev/repository/bitas-pip/simple"
-reference = "repos"
-
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.8"
-content-hash = "f03bc7a9bd24dbe6867c8fb4ced98b0d20bc82ca64dca6f9053205ba7e6ca264"
+content-hash = "531a5ecfadb1debb505b7dea00e4a718728cef0bcf6d50c45af1fd6d85272a86"
 
 [metadata.files]
 anybadge = [

@@ -1,5 +1,3 @@
---index-url https://repo.bitas.dev/repository/bitas-pip/simple
-
 beautifulsoup4==4.10.0; python_full_version > "3.0.0"
 bitas-utils @ https://repo.bitas.dev/repository/pip-bitas-hosted/packages/bitas-utils/0.4.6/bitas_utils-0.4.6-py3-none-any.whl ; python_version >= "3.8"
 datetime==4.3; python_version >= "3.8"
