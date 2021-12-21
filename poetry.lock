@@ -346,6 +346,28 @@ optional = false
 python-versions = "*"
 
 [[package]]
+name = "interrogate"
+version = "1.5.0"
+description = "Interrogate a codebase for docstring coverage."
+category = "dev"
+optional = false
+python-versions = ">=3.6"
+
+[package.dependencies]
+attrs = "*"
+click = ">=7.1"
+colorama = "*"
+py = "*"
+tabulate = "*"
+toml = "*"
+
+[package.extras]
+dev = ["cairosvg", "sphinx", "sphinx-autobuild", "pytest", "pytest-cov", "pytest-mock", "wheel", "pre-commit"]
+docs = ["sphinx", "sphinx-autobuild"]
+png = ["cairosvg"]
+tests = ["pytest", "pytest-cov", "pytest-mock"]
+
+[[package]]
 name = "isort"
 version = "5.10.1"
 description = "A Python utility / library to sort Python imports."
@@ -790,6 +812,17 @@ python-versions = ">=3.6"
 pbr = ">=2.0.0,<2.1.0 || >2.1.0"
 
 [[package]]
+name = "tabulate"
+version = "0.8.9"
+description = "Pretty-print tabular data"
+category = "dev"
+optional = false
+python-versions = "*"
+
+[package.extras]
+widechars = ["wcwidth"]
+
+[[package]]
 name = "tokenize-rt"
 version = "4.2.1"
 description = "A wrapper around the stdlib `tokenize` which roundtrips."
@@ -877,7 +910,7 @@ testing = ["coverage (>=5.0.3)", "zope.event", "zope.testing"]
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.8"
-content-hash = "531a5ecfadb1debb505b7dea00e4a718728cef0bcf6d50c45af1fd6d85272a86"
+content-hash = "acead0bad0203cbf289c1c0c61f1c8d29bedc5f38b9d2f8848e708d3a6f93c76"
 
 [metadata.files]
 anybadge = [
@@ -1036,6 +1069,10 @@ idna = [
 iniconfig = [
     {file = "iniconfig-1.1.1-py2.py3-none-any.whl", hash = "sha256:011e24c64b7f47f6ebd835bb12a743f2fbe9a26d4cecaa7f53bc4f35ee9da8b3"},
     {file = "iniconfig-1.1.1.tar.gz", hash = "sha256:bc3af051d7d14b2ee5ef9969666def0cd1a000e121eaea580d4a313df4b37f32"},
+]
+interrogate = [
+    {file = "interrogate-1.5.0-py3-none-any.whl", hash = "sha256:a4ccc5cbd727c74acc98dee6f5e79ef264c0bcfa66b68d4e123069b2af89091a"},
+    {file = "interrogate-1.5.0.tar.gz", hash = "sha256:b6f325f0aa84ac3ac6779d8708264d366102226c5af7d69058cecffcff7a6d6c"},
 ]
 isort = [
     {file = "isort-5.10.1-py3-none-any.whl", hash = "sha256:6f62d78e2f89b4500b080fe3a81690850cd254227f27f75c3a0c491a1f351ba7"},
@@ -1347,6 +1384,10 @@ soupsieve = [
 stevedore = [
     {file = "stevedore-3.5.0-py3-none-any.whl", hash = "sha256:a547de73308fd7e90075bb4d301405bebf705292fa90a90fc3bcf9133f58616c"},
     {file = "stevedore-3.5.0.tar.gz", hash = "sha256:f40253887d8712eaa2bb0ea3830374416736dc8ec0e22f5a65092c1174c44335"},
+]
+tabulate = [
+    {file = "tabulate-0.8.9-py3-none-any.whl", hash = "sha256:d7c013fe7abbc5e491394e10fa845f8f32fe54f8dc60c6622c6cf482d25d47e4"},
+    {file = "tabulate-0.8.9.tar.gz", hash = "sha256:eb1d13f25760052e8931f2ef80aaf6045a6cceb47514db8beab24cded16f13a7"},
 ]
 tokenize-rt = [
     {file = "tokenize_rt-4.2.1-py2.py3-none-any.whl", hash = "sha256:08a27fa032a81cf45e8858d0ac706004fcd523e8463415ddf1442be38e204ea8"},

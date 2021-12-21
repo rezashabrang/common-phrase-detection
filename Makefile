@@ -56,8 +56,8 @@ coverage:
 
 .PHONY: check-codestyle
 check-codestyle:
-	poetry run isort --diff --check-only --settings-path pyproject.toml phrase_counter/*.py tests/*/*.py
-	poetry run black --diff --check --config pyproject.toml phrase_counter/*.py tests/*/*.py
+	poetry run isort --diff --check-only --settings-path pyproject.toml phrase_counter/*.py tests/*.py
+	poetry run black --diff --check --config pyproject.toml phrase_counter/*.py tests/*.py
 	poetry run darglint --verbosity 2 phrase_counter tests
 
 .PHONY: mypy
