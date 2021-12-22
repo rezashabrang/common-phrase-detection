@@ -67,7 +67,7 @@ change-codestyle:
 
 .PHONY: mypy
 mypy:
-	mypy --install-types && poetry run mypy --config-file pyproject.toml ./
+	poetry run mypy --install-types && poetry run mypy --config-file pyproject.toml ./
 
 .PHONY: check-safety
 check-safety:
