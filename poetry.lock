@@ -147,7 +147,7 @@ uvloop = ["uvloop (>=0.15.2)"]
 name = "certifi"
 version = "2021.10.8"
 description = "Python package for providing Mozilla's CA Bundle."
-category = "dev"
+category = "main"
 optional = false
 python-versions = "*"
 
@@ -163,7 +163,7 @@ python-versions = ">=3.6.1"
 name = "charset-normalizer"
 version = "2.0.9"
 description = "The Real First Universal Charset Detector. Open, modern and actively maintained alternative to Chardet."
-category = "dev"
+category = "main"
 optional = false
 python-versions = ">=3.5.0"
 
@@ -345,7 +345,7 @@ license = ["ukkonen"]
 name = "idna"
 version = "3.3"
 description = "Internationalized Domain Names in Applications (IDNA)"
-category = "dev"
+category = "main"
 optional = false
 python-versions = ">=3.5"
 
@@ -752,7 +752,7 @@ mando = ">=0.6,<0.7"
 name = "requests"
 version = "2.26.0"
 description = "Python HTTP for Humans."
-category = "dev"
+category = "main"
 optional = false
 python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*, !=3.4.*, !=3.5.*"
 
@@ -870,7 +870,7 @@ python-versions = ">=3.6"
 name = "urllib3"
 version = "1.26.7"
 description = "HTTP library with thread-safe connection pooling, file post, and more."
-category = "dev"
+category = "main"
 optional = false
 python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*, !=3.4.*, <4"
 
@@ -922,7 +922,7 @@ testing = ["coverage (>=5.0.3)", "zope.event", "zope.testing"]
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.8"
-content-hash = "fc25d6c6545c484a4f606731f51714999594f4a1dd3899c1e7dd1fd57f7be0d2"
+content-hash = "4ca6aaff0899ec0ee7e4b67694638af9de81add228bb2626a459e5dffbd57ede"
 
 [metadata.files]
 anybadge = [
