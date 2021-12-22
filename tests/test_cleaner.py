@@ -6,9 +6,7 @@ def test_fetch_html_returns_true():
     Testing that fetch_page_text returns something.
     """
     webpage = "<p>hello there</p>"
-    page = fetch_page_text(
-        webpage=webpage
-    )
+    page = fetch_page_text(webpage=webpage)
     assert page
 
 
