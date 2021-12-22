@@ -61,6 +61,7 @@ flake8 = "^3.9.2"
 radon = "^5.1.0"
 docstr-coverage = "^2.1.1"
 interrogate = "^1.5.0"
+autopep8 = "*"
 
 [tool.black]
 # https://github.com/psf/black

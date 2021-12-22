@@ -11,5 +11,6 @@
   "python.testing.pytestEnabled": true,
   "python.linting.pylintEnabled": true,
   "python.pythonPath": ".venv/bin/python",
-  "editor.hover.enabled": true
+  "editor.hover.enabled": true,
+  "python.formatting.provider": "autopep8"
 }
