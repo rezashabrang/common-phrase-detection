@@ -1,12 +1,11 @@
 version: "3.7"
 
 services:
-    stop-word:
+    phrase-counter:
         build:
             dockerfile: Dockerfile.dev
             context: .
-        image: stop-words
-        container_name: stop_word_counter
+        image: phrase-counter
+        container_name: phrase_detector
         volumes:
             - .:/app
-        environment:
