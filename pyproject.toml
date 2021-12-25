@@ -37,6 +37,8 @@ bitas-utils = { url = "https://repo.bitas.dev/repository/pip-bitas-hosted/packag
 beautifulsoup4 = "*"
 requests = "*"
 types-requests = "*"
+scikit-learn = "*"
+pandas = "*"
 
 
 [tool.poetry.dev-dependencies]
@@ -141,6 +143,8 @@ addopts = [
   "--doctest-modules",
   "--doctest-continue-on-failure",
 ]
+
+testpaths = ['tests']
 
 
 [tool.coverage.run]
