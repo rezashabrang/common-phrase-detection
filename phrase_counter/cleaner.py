@@ -2,8 +2,8 @@
 import re
 
 import requests
-from cleaning_utils import clear_stop_char, replace_arabic_char
 from bs4 import BeautifulSoup
+from cleaning_utils import clear_stop_char, replace_arabic_char
 
 
 def fetch_page_text(url: str = "", webpage: str = "") -> str:
