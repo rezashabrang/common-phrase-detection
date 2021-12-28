@@ -2,7 +2,7 @@
 import re
 
 import requests
-from bitas_utils import clear_stop_char, replace_arabic_char
+from cleaning_utils import clear_stop_char, replace_arabic_char
 from bs4 import BeautifulSoup
 
 
