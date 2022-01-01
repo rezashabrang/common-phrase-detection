@@ -1,7 +1,7 @@
 """Tests for phrase detector module."""
 import pytest
 
-from phrase_counter.phrase_detector import phrase_counter
+from phrase_counter.lib.phrase_detector import phrase_counter
 
 
 def test_phrase_counter_return_true(test_page: str) -> None:
