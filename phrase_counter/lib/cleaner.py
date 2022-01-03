@@ -4,6 +4,7 @@ import re
 import requests
 from bs4 import BeautifulSoup
 from cleaning_utils import clear_stop_char, replace_arabic_char
+from urllib.parse import unquote
 
 
 def fetch_page_text(url: str = "", webpage: str = "") -> str:
@@ -23,6 +24,7 @@ def fetch_page_text(url: str = "", webpage: str = "") -> str:
 
     # If not then make soup from given webpage.
     else:
+        webpage = unquote(webpage)
         soup = BeautifulSoup(webpage, "html.parser")
 
     # Getting needed tags and stripped strings

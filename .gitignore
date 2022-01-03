@@ -131,3 +131,7 @@ dmypy.json
 # Project scope ignores
 /sandbox
 /test.*
+/data
+
+# Exclusion for structuring API
+!/phrase_counter/lib

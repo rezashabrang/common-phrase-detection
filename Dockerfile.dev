@@ -1,8 +1,14 @@
 FROM python:3.8-slim
 WORKDIR /app
 # set environment variables
-ENV PYTHONDONTWRITEBYTECODE 1
-ENV PYTHONUNBUFFERED 1
+ENV LANG=C.UTF-8 \
+    LC_ALL=C.UTF-8 \
+    PATH="${PATH}:/root/.poetry/bin" \
+    PYTHONDONTWRITEBYTECODE=1 \
+    PYTHONUNBUFFERED=1 \
+    PYTHONPATH=/app/phrase_counter \
+    PYTHONDONTWRITEBYTECODE=1 \
+    PYTHONUNBUFFERED=1
 
 
 COPY pyproject.toml /app
@@ -21,4 +27,4 @@ RUN poetry install -n
 COPY . /app
 
 # Final
-CMD ["tail", "-f", "/dev/null"]
+CMD ["uvicorn", "phrase_counter.main:app", "--host", "0.0.0.0", "--port", "80", "--reload"]

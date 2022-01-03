@@ -1,10 +1,11 @@
 """Main functions for counting phrases."""
 import pandas as pd
-from cleaner import cleaner, fetch_page_text
+from .cleaner import cleaner, fetch_page_text
 from sklearn.feature_extraction.text import CountVectorizer
+from hashlib import sha256
 
 
-def phrase_counter(doc: str, doc_type: str) -> pd.DataFrame:
+def phrase_counter(doc: str, doc_type: str = "text") -> pd.DataFrame:
     """Counting phrases in the document.
 
     Args:
@@ -38,4 +39,17 @@ def phrase_counter(doc: str, doc_type: str) -> pd.DataFrame:
     phrase_df["Bag"] = count_vector.get_feature_names_out().tolist()
     phrase_df["Count"] = count_data.toarray()[0].tolist()
 
-    return phrase_df
+    # ----------------- Additional Metadata -----------------
+    phrase_df["Phrase_hash"] = phrase_df.apply(
+        lambda row: sha256(row["Bag"].encode()).hexdigest(),
+        axis=1
+    )
+    phrase_df["Status"] = None
+
+    json_result = phrase_df.to_dict(orient='records')  # Converting result to JSON
+
+    return json_result
+
+
+# print(phrase_counter('<p> this is a sample text to testing the test in this test.</p>',
+#                      doc_type='text'))

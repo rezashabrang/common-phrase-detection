@@ -39,6 +39,9 @@ requests = "*"
 types-requests = "*"
 scikit-learn = "*"
 pandas = "*"
+fastapi = "*"
+pymongo = "*"
+uvicorn = "*"
 
 
 [tool.poetry.dev-dependencies]

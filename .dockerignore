@@ -36,3 +36,6 @@ venv
 .AppleDouble
 .LSOverride
 ._*
+
+# Project scope
+/data
