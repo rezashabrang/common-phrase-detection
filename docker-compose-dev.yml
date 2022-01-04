@@ -12,11 +12,12 @@ services:
             MONGO_INITDB_ROOT_PASSWORD: ${MONGO_INITDB_ROOT_PASSWORD}
             MONGO_USERNAME: ${MONGO_USERNAME}
             MONGO_PASSWORD: ${MONGO_PASSWORD}
-            MONGO_COLLECTION: ${MONGO_COLLECTION}
+            MONGO_PHRASE_DB: ${MONGO_PHRASE_DB}
             MONGO_HOST: ${MONGO_HOST}
             MONGO_PORT: ${MONGO_PORT}
         volumes:
-            - .:/app
+            - ./phrase_counter:/app/phrase_counter
+            - ./tests:/app/tests
         ports:
             - "8000:80"
     db:
@@ -28,7 +29,7 @@ services:
             MONGO_INITDB_ROOT_PASSWORD: ${MONGO_INITDB_ROOT_PASSWORD}
             MONGO_USERNAME: ${MONGO_USERNAME}
             MONGO_PASSWORD: ${MONGO_PASSWORD}
-            MONGO_COLLECTION: ${MONGO_COLLECTION}
+            MONGO_PHRASE_DB: ${MONGO_PHRASE_DB}
             MONGO_HOST: ${MONGO_HOST}
             MONGO_PORT: ${MONGO_PORT}
         ports:

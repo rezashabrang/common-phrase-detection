@@ -42,6 +42,8 @@ pandas = "*"
 fastapi = "*"
 pymongo = "*"
 uvicorn = "*"
+python-multipart = "*"
+pydantic = "*"
 
 
 [tool.poetry.dev-dependencies]

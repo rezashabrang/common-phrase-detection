@@ -49,7 +49,3 @@ def phrase_counter(doc: str, doc_type: str = "text") -> pd.DataFrame:
     json_result = phrase_df.to_dict(orient='records')  # Converting result to JSON
 
     return json_result
-
-
-# print(phrase_counter('<p> this is a sample text to testing the test in this test.</p>',
-#                      doc_type='text'))

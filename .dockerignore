@@ -39,3 +39,5 @@ venv
 
 # Project scope
 /data
+/htmlcov
+/sandbox
