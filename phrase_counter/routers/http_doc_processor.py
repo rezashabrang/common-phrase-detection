@@ -3,6 +3,7 @@ from fastapi import APIRouter, HTTPException
 from lib.phrase_detector import phrase_counter
 from lib.db import integrate_phrase_data
 from pydantic import BaseModel
+from typing import Dict
 
 # ------------------------------ Initialization -------------------------------
 router = APIRouter()
@@ -11,6 +12,7 @@ router = APIRouter()
 
 
 class HtmlFile(BaseModel):
+    """Schema for payload."""
     file: str
 
 
@@ -22,7 +24,7 @@ class HtmlFile(BaseModel):
 )
 async def read_items(
         doc: HtmlFile
-):
+) -> Dict[str, str]:
     """Getting document content, processing & saving results in db."""
     try:
         doc_content = doc.file
@@ -38,5 +40,4 @@ async def read_items(
         raise HTTPException from err
 
     except Exception as err:
-        print(err)
         raise HTTPException(status_code=400) from err

@@ -13,6 +13,7 @@ services:
             MONGO_USERNAME: ${MONGO_USERNAME}
             MONGO_PASSWORD: ${MONGO_PASSWORD}
             MONGO_PHRASE_DB: ${MONGO_PHRASE_DB}
+            MONGO_PHRASE_COL: ${MONGO_PHRASE_COL}
             MONGO_HOST: ${MONGO_HOST}
             MONGO_PORT: ${MONGO_PORT}
         volumes:
@@ -30,6 +31,7 @@ services:
             MONGO_USERNAME: ${MONGO_USERNAME}
             MONGO_PASSWORD: ${MONGO_PASSWORD}
             MONGO_PHRASE_DB: ${MONGO_PHRASE_DB}
+            MONGO_PHRASE_COL: ${MONGO_PHRASE_COL}
             MONGO_HOST: ${MONGO_HOST}
             MONGO_PORT: ${MONGO_PORT}
         ports:
@@ -37,6 +39,8 @@ services:
         volumes:
             - ./data/mongo:/data/db
         # command: mongosh -u ${MONGO_INITDB_ROOT_USERNAME} -p ${MONGO_INITDB_ROOT_PASSWORD} --authenticationDatabase admin
+        # command: mongod --auth --port 27017
+
 
     adminer:
         image: dockette/adminer:mongo

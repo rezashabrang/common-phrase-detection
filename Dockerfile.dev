@@ -11,10 +11,11 @@ ENV LANG=C.UTF-8 \
     PYTHONUNBUFFERED=1
 
 
-COPY pyproject.toml /app
 
 # install dependencies
 RUN apt update && apt upgrade -y && apt install curl -y && apt install build-essential python3-dev -y
+
+COPY pyproject.toml /app
 
 # POETRY
 RUN curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/install-poetry.py | POETRY_HOME=/opt/poetry python && \
@@ -27,4 +28,5 @@ RUN poetry install -n
 COPY . /app
 
 # Final
+WORKDIR /app
 CMD ["uvicorn", "phrase_counter.main:app", "--host", "0.0.0.0", "--port", "80", "--reload"]

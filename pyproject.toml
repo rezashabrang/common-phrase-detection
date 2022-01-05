@@ -41,7 +41,7 @@ scikit-learn = "*"
 pandas = "*"
 fastapi = "*"
 pymongo = "*"
-uvicorn = "*"
+uvicorn = {version = "^0.15.0", extras = ["standard"]}
 python-multipart = "*"
 pydantic = "*"
 
@@ -113,7 +113,11 @@ python_version = 3.8
 pretty = true
 show_traceback = true
 color_output = true
-exclude = 'setup.py'
+exclude = '''(?x)(
+    data
+    |sandbox/,
+)'''
+
 
 allow_redefinition = false
 check_untyped_defs = true

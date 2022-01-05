@@ -1,8 +1,10 @@
 """Customizing fast api."""
-import os
-from fastapi.openapi.utils import get_openapi
-from fastapi import FastAPI, Header, HTTPException
+from typing import Union
 
+import os
+
+from fastapi import FastAPI, Header, HTTPException
+from fastapi.openapi.utils import get_openapi
 from routers import http_doc_processor
 
 app = FastAPI()
@@ -11,13 +13,15 @@ API for handling common phrase detection functionalities.
 """
 
 
-async def get_token_header(x_token: str = Header(...)):
+async def get_token_header(x_token: str = Header(...)) -> Union[None, Exception]:
     """."""
     if x_token != "fake-super-secret-token":
         raise HTTPException(status_code=400, detail="X-Token header invalid")
+    return None
 
 
 def custom_openapi():
+    """Defining custom API schema."""
     if app.openapi_schema:
         return app.openapi_schema
     openapi_schema = get_openapi(
@@ -33,11 +37,11 @@ def custom_openapi():
     return app.openapi_schema
 
 
-app.openapi = custom_openapi
+app.openapi = custom_openapi  # type: ignore
 
 app.include_router(
     http_doc_processor.router,
-    prefix=os.getenv('ROOT_PATH', ''),
+    prefix=os.getenv("ROOT_PATH", ""),
     # dependencies=[Depends(get_token_header)],
     responses={404: {"description": "Not found"}},
 )

@@ -3,9 +3,10 @@ import pandas as pd
 from .cleaner import cleaner, fetch_page_text
 from sklearn.feature_extraction.text import CountVectorizer
 from hashlib import sha256
+from typing import Any
 
 
-def phrase_counter(doc: str, doc_type: str = "text") -> pd.DataFrame:
+def phrase_counter(doc: str, doc_type: str = "text") -> Any:
     """Counting phrases in the document.
 
     Args:
