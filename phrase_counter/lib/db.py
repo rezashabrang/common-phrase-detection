@@ -1,8 +1,10 @@
 """Mongo Database Configs."""
+from fastapi.exceptions import HTTPException
 from pymongo import MongoClient
 from urllib import parse
 import os
 from typing import List, Dict
+from hashlib import sha256
 
 
 def mongo_connection() -> MongoClient:
@@ -52,3 +54,38 @@ def integrate_phrase_data(
         phrase_col.insert_many(values_to_be_inserted)
 
     client.close()
+
+
+def update_status(
+    phrase: str,
+    status: str
+) -> None:
+    """Updates the status of given phrase.
+
+        Args:
+            phrase: Given keyword for status update.
+            status: stop or highlight.
+
+        Raises:
+            HTTPException: If no phrase is found in database.
+    """
+    # Switching to collection
+    client = mongo_connection()
+    phrasedb = client[os.getenv("MONGO_PHRASE_DB")]  # Phrase database
+    phrase_col = phrasedb[os.getenv("MONGO_PHRASE_COL")]  # Phrase collection
+    phrase_hash = sha256(phrase.encode()).hexdigest()  # Hashing the phrase
+
+    # Finding the phrase in db
+    query = {"Phrase_hash": phrase_hash}
+    query_res = phrase_col.find(query)
+    if list(query_res):
+        # Updating status
+        update_query = {"$set": {"Status": status}}
+        phrase_col.update_one(query, update_query)
+
+    # If there is not any record then raise exception
+    else:
+        raise HTTPException(
+            status_code=404,
+            detail="no-phrase"
+        )

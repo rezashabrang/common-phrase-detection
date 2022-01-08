@@ -37,7 +37,9 @@ async def read_items(
         return res
 
     except HTTPException as err:
-        raise HTTPException from err
+        raise HTTPException(
+            status_code=400
+        ) from err
 
     except Exception as err:
         raise HTTPException(status_code=400) from err
