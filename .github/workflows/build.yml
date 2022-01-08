@@ -21,31 +21,31 @@ jobs:
         docker network create -d bridge phrase-ci-network
 
     - name: Build & run phrase container
-      run: |
-        docker run --rm -it -d --name phrase_ci \
-        -e MONGO_INITDB_ROOT_USERNAME=${MONGO_INITDB_ROOT_USERNAME} \
-        -e MONGO_INITDB_ROOT_PASSWORD=${MONGO_INITDB_ROOT_PASSWORD} \
-        -e MONGO_USERNAME=${MONGO_USERNAME} \
-        -e MONGO_PASSWORD=${MONGO_PASSWORD} \
-        -e MONGO_PHRASE_DB=${MONGO_PHRASE_DB} \
-        -e MONGO_PHRASE_COL=${MONGO_PHRASE_COL} \
-        -e MONGO_HOST=${MONGO_HOST} \
-        -e MONGO_PORT=${MONGO_PORT} \
+      run: >
+        docker run --rm -it -d --name phrase_ci
+        -e MONGO_INITDB_ROOT_USERNAME=${MONGO_INITDB_ROOT_USERNAME}
+        -e MONGO_INITDB_ROOT_PASSWORD=${MONGO_INITDB_ROOT_PASSWORD}
+        -e MONGO_USERNAME=${MONGO_USERNAME}
+        -e MONGO_PASSWORD=${MONGO_PASSWORD}
+        -e MONGO_PHRASE_DB=${MONGO_PHRASE_DB}
+        -e MONGO_PHRASE_COL=${MONGO_PHRASE_COL}
+        -e MONGO_HOST=${MONGO_HOST}
+        -e MONGO_PORT=${MONGO_PORT}
         --network phrase-ci-network
         $(docker build -q -f Dockerfile.dev .)
 
     - name: Pull & run mongodb
-      run: |
-        docker pull mongo
-        docker run \
-        -e MONGO_INITDB_ROOT_USERNAME=${MONGO_INITDB_ROOT_USERNAME} \
-        -e MONGO_INITDB_ROOT_PASSWORD=${MONGO_INITDB_ROOT_PASSWORD} \
-        -e MONGO_USERNAME=${MONGO_USERNAME} \
-        -e MONGO_PASSWORD=${MONGO_PASSWORD} \
-        -e MONGO_PHRASE_DB=${MONGO_PHRASE_DB} \
-        -e MONGO_PHRASE_COL=${MONGO_PHRASE_COL} \
-        -e MONGO_HOST=${MONGO_HOST} \
-        -e MONGO_PORT=${MONGO_PORT} \
+      run: >
+        docker pull mongo &&
+        docker run
+        -e MONGO_INITDB_ROOT_USERNAME=${MONGO_INITDB_ROOT_USERNAME}
+        -e MONGO_INITDB_ROOT_PASSWORD=${MONGO_INITDB_ROOT_PASSWORD}
+        -e MONGO_USERNAME=${MONGO_USERNAME}
+        -e MONGO_PASSWORD=${MONGO_PASSWORD}
+        -e MONGO_PHRASE_DB=${MONGO_PHRASE_DB}
+        -e MONGO_PHRASE_COL=${MONGO_PHRASE_COL}
+        -e MONGO_HOST=${MONGO_HOST}
+        -e MONGO_PORT=${MONGO_PORT}
         -p ${MONGO_PORT}:${MONGO_PORT}
         --network phrase-ci-network
         --name db
