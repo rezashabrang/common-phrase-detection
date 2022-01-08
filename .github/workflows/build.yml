@@ -37,7 +37,7 @@ jobs:
     - name: Pull & run mongodb
       run: >
         docker pull mongo &&
-        docker run
+        docker run --rm -it -d
         -e MONGO_INITDB_ROOT_USERNAME=${{ secrets.MONGO_INITDB_ROOT_USERNAME }}
         -e MONGO_INITDB_ROOT_PASSWORD=${{ secrets.MONGO_INITDB_ROOT_PASSWORD }}
         -e MONGO_USERNAME=${{ secrets.MONGO_USERNAME }}
