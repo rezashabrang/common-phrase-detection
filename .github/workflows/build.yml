@@ -46,12 +46,10 @@ jobs:
         -e MONGO_PHRASE_COL=${{ secrets.MONGO_PHRASE_COL }}
         -e MONGO_HOST=${{ secrets.MONGO_HOST }}
         -e MONGO_PORT=${{ secrets.MONGO_PORT }}
-        -p ${{ secrets.MONGO_PORT }}:${{ secrets.MONGO_PORT }}
         --network phrase-ci-network
         --name db
         mongo
-        &&
-        docker exec -i db mongod
+        
     - name: Configuring mongo
       run: >     
         docker exec -i db mongo -u ${{ secrets.MONGO_INITDB_ROOT_USERNAME }} -p ${{ secrets.MONGO_INITDB_ROOT_PASSWORD }}
