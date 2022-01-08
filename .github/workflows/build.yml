@@ -50,7 +50,8 @@ jobs:
         --network phrase-ci-network
         --name db
         mongo
-        
+        &&
+        docker exec -i db mongod
     - name: Configuring mongo
       run: >     
         docker exec -i db mongo -u ${{ secrets.MONGO_INITDB_ROOT_USERNAME }} -p ${{ secrets.MONGO_INITDB_ROOT_PASSWORD }}
