@@ -16,40 +16,74 @@ jobs:
       with:
         python-version: ${{ matrix.python-version }}
 
-    - name: Install poetry
-      run: make poetry-download
-
-    - name: Set up cache
-      uses: actions/cache@v2.1.7
-      with:
-        path: .venv
-        key: venv-${{ matrix.python-version }}-${{ hashFiles('pyproject.toml') }}-${{ hashFiles('poetry.lock') }}
-    - name: Install dependencies
+    - name: Creating docker network
       run: |
-        poetry config virtualenvs.in-project true
-        poetry install
+        docker network create -d bridge phrase-ci-network
+
+    - name: Build & run phrase container
+      run: |
+        docker run --rm -it -d --name phrase_ci  \
+        -e MONGO_INITDB_ROOT_USERNAME=${MONGO_INITDB_ROOT_USERNAME} \
+        -e MONGO_INITDB_ROOT_PASSWORD=${MONGO_INITDB_ROOT_PASSWORD} \
+        -e MONGO_USERNAME=${MONGO_USERNAME} \
+        -e MONGO_PASSWORD=${MONGO_PASSWORD} \
+        -e MONGO_PHRASE_DB=${MONGO_PHRASE_DB} \
+        -e MONGO_PHRASE_COL=${MONGO_PHRASE_COL} \
+        -e MONGO_HOST=${MONGO_HOST} \
+        -e MONGO_PORT=${MONGO_PORT} \
+        --network phrase-ci-network
+        $(docker build -q -f Dockerfile.dev .)
+
+    - name: Pull & run mongodb
+      run: |
+        docker pull mongo
+        docker run \
+        -e MONGO_INITDB_ROOT_USERNAME=${MONGO_INITDB_ROOT_USERNAME} \
+        -e MONGO_INITDB_ROOT_PASSWORD=${MONGO_INITDB_ROOT_PASSWORD} \
+        -e MONGO_USERNAME=${MONGO_USERNAME} \
+        -e MONGO_PASSWORD=${MONGO_PASSWORD} \
+        -e MONGO_PHRASE_DB=${MONGO_PHRASE_DB} \
+        -e MONGO_PHRASE_COL=${MONGO_PHRASE_COL} \
+        -e MONGO_HOST=${MONGO_HOST} \
+        -e MONGO_PORT=${MONGO_PORT} \
+        -p ${MONGO_PORT}:${MONGO_PORT}
+        --network phrase-ci-network
+        --name db
+        mongo
+        
+    - name: Configuring mongo
+      run: |     
+        docker exec -i db mongo -u ${MONGO_INITDB_ROOT_USERNAME} -p ${MONGO_INITDB_ROOT_PASSWORD} \
+        --eval "db.getSiblingDB('test_phrasedb').createUser({user: 'my_test_usr', pwd: 'test', roles: ['readWrite']})"
+
     - name: Run style checks
       run: |
-        make check-codestyle
+        docker exec -i phrase_ci make check-codestyle
+
     - name: Run tests
       run: |
-        make test
+        docker exec -i phrase_ci make test
+
     - name: Run coverage
       run: |
-        make coverage
-      continue-on-error: true
+        docker exec -i phrase_ci make coverage
+
     - name: Run safety checks
       run: |
-        make check-safety
+        docker exec -i phrase_ci make check-safety
+
     - name: Run mypy checks
       run: |
-        make mypy
+        docker exec -i phrase_ci make mypy
+
     - name: Run complexity
       run: |
-        make complexity
+        docker exec -i phrase_ci make complexity
+
     - name: Run maintainability
       run: |
         make maintainability
+
     - name: Run interrogate
       run: |
-        make interrogate
+        docker exec -i phrase_ci make interrogate
