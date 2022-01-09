@@ -5,6 +5,7 @@ from urllib import parse
 import os
 from typing import List, Dict
 from hashlib import sha256
+from pymongo import DESCENDING
 
 
 def mongo_connection() -> MongoClient:
@@ -89,3 +90,59 @@ def update_status(
             status_code=404,
             detail="no-phrase"
         )
+
+
+def fetch_data(
+    status: str,
+    limit: int,
+    offset: int
+):
+    """Fetching data from mongo"""
+    # ----------------- Client Initialization ----------------
+    client = mongo_connection()
+    phrasedb = client[os.getenv("MONGO_PHRASE_DB")]  # Phrase database
+    phrase_col = phrasedb[os.getenv("MONGO_PHRASE_COL")]  # Phrase collection
+
+    # If no status is given fetch all of available data.
+    if status is None:  # Fetching all records
+        result = list(phrase_col.find(
+            {},
+            limit=limit,
+            skip=offset,
+            projection={"_id": False, "Phrase_hash": False},
+            sort=[("Count", DESCENDING)]
+        ))
+    elif status == "highlight":  # Fetching highlight phrases
+        result = list(phrase_col.find(
+            {"Status": "highlight"},
+            limit=limit,
+            skip=offset,
+            projection={"_id": False, "Phrase_hash": False},
+            sort=[("Count", DESCENDING)]
+        ))
+    elif status == "stop":  # Fetching stop phrases
+        result = list(phrase_col.find(
+            {"Status": "stop"},
+            limit=limit,
+            skip=offset,
+            projection={"_id": False, "Phrase_hash": False},
+            sort=[("Count", DESCENDING)]
+        ))
+    elif status == "with_status":  # Fetching records that status IS NOT NULL
+        result = list(phrase_col.find(
+            {"Status": {"$ne": None}},
+            limit=limit,
+            skip=offset,
+            projection={"_id": False, "Phrase_hash": False},
+            sort=[("Count", DESCENDING)]
+        ))
+    elif status == "no_status":  # Fetching records that status IS NULL
+        result = list(phrase_col.find(
+            {"Status": None},
+            limit=limit,
+            skip=offset,
+            projection={"_id": False, "Phrase_hash": False},
+            sort=[("Count", DESCENDING)]
+        ))
+
+    return result
