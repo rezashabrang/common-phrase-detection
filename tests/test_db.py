@@ -1,4 +1,4 @@
-from typing import Callable
+from typing import Callable, Counter
 
 import os
 from hashlib import sha256
@@ -6,7 +6,9 @@ from hashlib import sha256
 import pytest
 from fastapi.exceptions import HTTPException
 
-from phrase_counter.lib.db import integrate_phrase_data, mongo_connection, update_status
+from phrase_counter.lib.db import (
+    integrate_phrase_data, mongo_connection, update_status, fetch_data
+)
 
 
 def test_insert_true(clean_collection: Callable[[], None]) -> None:
@@ -71,3 +73,68 @@ def test_update_status_new_phrase():
     """Testing that for a new phrase function return not found exception."""
     with pytest.raises(HTTPException):
         update_status("sample", "stop")
+
+
+def test_fetch_data_true(clean_collection, mock_data):
+    """Simple test that checks if data is being fetched."""
+    integrate_phrase_data(mock_data)
+    res = fetch_data(
+        status=None,
+        limit=100,
+        offset=0
+    )
+    assert res
+
+
+def test_check_sort(clean_collection, mock_data):
+    """Checking that returned data is sorted base on count."""
+    integrate_phrase_data(mock_data)
+    res = fetch_data(
+        status=None,
+        limit=10,
+        offset=0
+    )
+
+    for i in range(len(res) - 1):
+        assert res[i]["Count"] >= res[i + 1]["Count"]
+
+
+def test_check_keys(clean_collection, mock_data):
+    """Checking the keys in records."""
+    integrate_phrase_data(mock_data)
+    res = fetch_data(
+        status=None,
+        limit=10,
+        offset=0
+    )
+    keys_list = res[0].keys()
+    assert "Bag" in keys_list
+    assert "Status" in keys_list
+    assert "Count" in keys_list
+
+
+def test_check_len(clean_collection, mock_data):
+    """Checking that the length of the returned data is equal to limit arg."""
+    integrate_phrase_data(mock_data)
+    res = fetch_data(
+        status=None,
+        limit=10,
+        offset=0
+    )
+    assert len(res) == 10
+
+
+def test_check_statuses(clean_collection, mock_data):
+    """Checking statuses"""
+    integrate_phrase_data(mock_data)
+    statuses = [None, "highlight", "stop", "with_status", "no_status"]
+    for status in statuses:
+        res = fetch_data(
+            status=status,
+            limit=10,
+            offset=0
+        )
+        assert res
+        assert len(res) == 10
+        for i in range(len(res) - 1):
+            assert res[i]["Count"] >= res[i + 1]["Count"]

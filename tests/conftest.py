@@ -8,6 +8,9 @@ from pymongo import MongoClient
 
 from phrase_counter.lib.db import mongo_connection
 
+import string
+import random
+
 
 @pytest.fixture(scope="session", autouse=True)
 def initializing_db():
@@ -58,3 +61,27 @@ def clean_collection():
     test_db = test_client[os.getenv("MONGO_PHRASE_DB")]
     test_col = test_db[os.getenv("MONGO_PHRASE_COL")]
     test_col.delete_many({})
+
+
+@pytest.fixture(scope="function")
+def mock_data():
+    """Creating mock data."""
+    n_data = random.randint(200, 400)  # Number of random data to be created.
+    status_list = [None, "stop", "highlight"]
+    data = []
+    for _ in range(n_data):
+        sample = {
+            "Bag":  "".join(
+                random.choices(string.ascii_lowercase + " ", k=random.randint(5, 20))
+            ),
+            "Count": random.randint(1, 4),
+            "Status": random.choice(status_list),
+            "Phrase_hash": "".join(
+                random.choices(
+                    string.ascii_lowercase + string.digits, k=16
+                )
+            ),
+        }
+        data.append(sample)
+
+    return data
