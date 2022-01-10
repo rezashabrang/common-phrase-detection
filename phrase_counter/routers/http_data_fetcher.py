@@ -21,7 +21,28 @@ async def fetch_phrases(
     page: int = 1
 
 ):
-    """Fetching data from database."""
+    """Fetching data from database.
+
+    **Arguments:** <br>
+
+    * **status**: Must be either `highlight`, `stop`, `with_status`, `no_status`
+    (leaving it empty will ignore status of the phrase & fetch all available
+    data) <br>
+
+        * **highlight**: for fetching highlight phrases.
+
+        * **stop**: for fetching stop phrases.
+
+        * **with_status**: for fetching phrases with status.
+
+        * **no_status**: for fetching phrases that have no status (NULL)
+    <br>
+
+    * **limit**: Number of results in a page.
+
+    * **page**: Page number.
+
+    """
     try:
         if status not in [None, "highlight", "stop", "with_status", "no_status"]:
             raise HTTPException(

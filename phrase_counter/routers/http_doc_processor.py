@@ -25,7 +25,16 @@ class HtmlFile(BaseModel):
 async def read_items(
         doc: HtmlFile
 ) -> Dict[str, str]:
-    """Getting document content, processing & saving results in db."""
+    """Getting document content, processing & saving results in db. <br> <br>
+    In request body an HTML file must be passed. <br>
+    
+    **Example**: <br>
+    ```
+    {
+        "file" :"<p> hello world </p>
+    }
+    ```
+    """
     try:
         doc_content = doc.file
         phrase_count_res = phrase_counter(doc_content)

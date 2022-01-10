@@ -10,7 +10,7 @@ router = APIRouter()
 # ---------------------------- function definition ----------------------------
 
 
-@router.get(
+@router.post(
     "/api/status-updater/{phrase}/{status_code}",
     response_model=dict,
     tags=['Status Updater'],
@@ -20,7 +20,13 @@ async def read_phrase_status(
         phrase: str,
         status_code: int
 ) -> Dict[str, str]:
-    """ Getting phrase & status and updating related record in db."""
+    """ Getting phrase & status and updating related record in db. <br>
+
+    **Arguments:** <br>
+    * **phrase**: Phrase for which the status must be changed.
+
+    * **status_code**: `0` for **highlight** and `1` for **stop**.
+    """
     try:
         if status_code not in [0, 1]:
             raise HTTPException(

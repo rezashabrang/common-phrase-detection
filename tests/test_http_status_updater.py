@@ -24,7 +24,7 @@ def test_simple_router(clean_collection: Callable[[], None]) -> None:
     ]
     integrate_phrase_data(sample_res)
 
-    response = client.get("http://127.0.0.1:8000/api/status-updater/sample/0")
+    response = client.post("http://127.0.0.1:8000/api/status-updater/sample/0")
     assert response.status_code == 201
 
 
@@ -40,7 +40,7 @@ def test_simple_router_2(clean_collection: Callable[[], None]) -> None:
     ]
     integrate_phrase_data(sample_res)
 
-    response = client.get("http://127.0.0.1:8000/api/status-updater/sample/1")
+    response = client.post("http://127.0.0.1:8000/api/status-updater/sample/1")
     assert response.status_code == 201
 
 
@@ -56,12 +56,12 @@ def test_wrong_code(clean_collection: Callable[[], None]) -> None:
     ]
     integrate_phrase_data(sample_res)
     with pytest.raises(HTTPException):
-        response = client.get("http://127.0.0.1:8000/api/status-updater/sample/5")
+        response = client.post("http://127.0.0.1:8000/api/status-updater/sample/5")
         assert response.status_code == 400
 
 
 def test_new_phrase() -> None:
     """Testing when a new phrase is given."""
     with pytest.raises(HTTPException):
-        response = client.get("http://127.0.0.1:8000/api/status-updater/sample/1")
+        response = client.post("http://127.0.0.1:8000/api/status-updater/sample/1")
         assert response.status_code == 404
