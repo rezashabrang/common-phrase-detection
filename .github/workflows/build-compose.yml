@@ -1,0 +1,58 @@
+name: build
+
+on: [push, pull_request]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ["3.8"]
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up Python ${{ matrix.python-version }}
+      uses: actions/setup-python@v2.3.1
+      with:
+        python-version: ${{ matrix.python-version }}
+
+    - name: Build & run services
+      run: >
+        docker-compose -f docker-compose-ci.yml up -d --build
+        
+    - name: Configuring mongo
+      run: >     
+        docker exec -i db mongo -u ${{ secrets.MONGO_INITDB_ROOT_USERNAME }} -p ${{ secrets.MONGO_INITDB_ROOT_PASSWORD }}
+        --eval "db.getSiblingDB('test_phrasedb').createUser({user: 'my_test_usr', pwd: 'test', roles: ['readWrite']})"
+
+    - name: Run style checks
+      run: |
+        docker exec -i phrase_ci make check-codestyle
+
+    - name: Run tests
+      run: |
+        docker exec -i phrase_ci make test
+
+    - name: Run coverage
+      run: |
+        docker exec -i phrase_ci make coverage
+
+    - name: Run safety checks
+      run: |
+        docker exec -i phrase_ci make check-safety
+
+    - name: Run mypy checks
+      run: |
+        docker exec -i phrase_ci make mypy
+
+    - name: Run complexity
+      run: |
+        docker exec -i phrase_ci make complexity
+
+    - name: Run maintainability
+      run: |
+        make maintainability
+
+    - name: Run interrogate
+      run: |
+        docker exec -i phrase_ci make interrogate

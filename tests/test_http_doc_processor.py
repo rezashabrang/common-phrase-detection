@@ -23,3 +23,13 @@ def test_wrong_html_format() -> None:
     with pytest.raises(HTTPException):
         sample_payload = {"file": "Should not give a plain string. Only HTML format."}
         client.post("http://127.0.0.1:8000/api/doc-process/", json=sample_payload)
+
+
+def test_with_sample_page(test_page) -> None:
+    """Testing with sample HTML page"""
+    sample_payload = {"file": test_page}
+    response = client.post(
+        "http://127.0.0.1:8000/api/doc-process/", json=sample_payload
+    )
+    
+    assert response.status_code == 201

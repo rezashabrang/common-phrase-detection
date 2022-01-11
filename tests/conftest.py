@@ -17,7 +17,7 @@ def initializing_db():
     # ---------------- Updating test environment ----------------
     current_path = str(Path(__file__).parent)
     test_env = {}
-    with open(current_path + "/.env.test", encoding="uft-8") as f:
+    with open(current_path + "/.env.test", encoding="utf-8") as f:
         for line in f:
             env_var, env_val = line.split("=")
             test_env[env_var] = env_val.strip()
