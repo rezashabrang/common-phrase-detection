@@ -3,9 +3,9 @@ from typing import Union
 
 import os
 
-from fastapi import FastAPI, Header, HTTPException
+from fastapi import Depends, FastAPI, Header, HTTPException
 from fastapi.openapi.utils import get_openapi
-from routers import http_doc_processor, http_status_updater, http_data_fetcher
+from routers import http_data_fetcher, http_doc_processor, http_status_updater
 
 app = FastAPI()
 description = """
@@ -49,7 +49,7 @@ Here you can fetch phrases based on 4 different situation for statuses:
 
 async def get_token_header(x_token: str = Header(...)) -> Union[None, Exception]:
     """."""
-    if x_token != "fake-super-secret-token":
+    if x_token != os.getenv("API_KEY"):
         raise HTTPException(status_code=400, detail="X-Token header invalid")
     return None
 
@@ -76,20 +76,20 @@ app.openapi = custom_openapi  # type: ignore
 app.include_router(
     http_doc_processor.router,
     prefix=os.getenv("ROOT_PATH", ""),
-    # dependencies=[Depends(get_token_header)],
+    dependencies=[Depends(get_token_header)],
     responses={404: {"description": "Not found"}},
 )
 
 app.include_router(
     http_status_updater.router,
     prefix=os.getenv("ROOT_PATH", ""),
-    # dependencies=[Depends(get_token_header)],
+    dependencies=[Depends(get_token_header)],
     responses={404: {"description": "Not found"}},
 )
 
 app.include_router(
     http_data_fetcher.router,
     prefix=os.getenv("ROOT_PATH", ""),
-    # dependencies=[Depends(get_token_header)],
+    dependencies=[Depends(get_token_header)],
     responses={404: {"description": "Not found"}},
 )

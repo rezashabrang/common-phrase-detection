@@ -3,7 +3,7 @@ from fastapi.exceptions import HTTPException
 from pymongo import MongoClient
 from urllib import parse
 import os
-from typing import List, Dict
+from typing import List, Dict, Union
 from hashlib import sha256
 from pymongo import DESCENDING
 
@@ -93,10 +93,10 @@ def update_status(
 
 
 def fetch_data(
-    status: str,
+    status: Union[str, None],
     limit: int,
     offset: int
-):
+) -> List[Dict[str, str]]:
     """Fetching data from mongo"""
     # ----------------- Client Initialization ----------------
     client = mongo_connection()

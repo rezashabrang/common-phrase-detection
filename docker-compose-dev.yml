@@ -16,6 +16,7 @@ services:
             MONGO_PHRASE_COL: ${MONGO_PHRASE_COL}
             MONGO_HOST: ${MONGO_HOST}
             MONGO_PORT: ${MONGO_PORT}
+            API_KEY: ${API_KEY}
         volumes:
             - ./phrase_counter:/app/phrase_counter
             - ./tests:/app/tests

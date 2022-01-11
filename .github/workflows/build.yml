@@ -48,6 +48,7 @@ jobs:
         -e MONGO_PORT=${{ secrets.MONGO_PORT }}
         --network phrase-ci-network
         --name db
+        -v mongo_data:/data/db
         mongo
         
     - name: Configuring mongo

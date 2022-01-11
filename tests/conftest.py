@@ -1,5 +1,7 @@
 """Fixtures."""
 import os
+import random
+import string
 from pathlib import Path
 from urllib import parse
 
@@ -7,9 +9,6 @@ import pytest
 from pymongo import MongoClient
 
 from phrase_counter.lib.db import mongo_connection
-
-import string
-import random
 
 
 @pytest.fixture(scope="session", autouse=True)
@@ -71,15 +70,13 @@ def mock_data():
     data = []
     for _ in range(n_data):
         sample = {
-            "Bag":  "".join(
+            "Bag": "".join(
                 random.choices(string.ascii_lowercase + " ", k=random.randint(5, 20))
             ),
             "Count": random.randint(1, 4),
             "Status": random.choice(status_list),
             "Phrase_hash": "".join(
-                random.choices(
-                    string.ascii_lowercase + string.digits, k=16
-                )
+                random.choices(string.ascii_lowercase + string.digits, k=16)
             ),
         }
         data.append(sample)
