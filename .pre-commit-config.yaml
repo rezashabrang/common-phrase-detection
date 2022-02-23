@@ -66,8 +66,9 @@ repos:
     rev: 6.1.1
     hooks:
       - id: pydocstyle
+        additional_dependencies: ["toml"]
         exclude: ^build/
-        args: [--config, setup.cfg]
+        args: [--config, pyproject.toml]
   - repo: https://github.com/pycqa/pylint
     rev: v2.10.2
     hooks:

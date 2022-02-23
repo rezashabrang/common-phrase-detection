@@ -1,3 +1,4 @@
+"""Testing database functionality."""
 from typing import Callable
 
 import os
@@ -59,7 +60,7 @@ def test_update_status_true(clean_collection: Callable[[], None]) -> None:
             "Bag": "test_bag",
             "Count": 5,
             "Status": None,
-            "Phrase_hash": sha256("test_bag".encode()).hexdigest(),
+            "Phrase_hash": sha256(b"test_bag").hexdigest(),
         }
     ]
     integrate_phrase_data(sample_res)
@@ -112,7 +113,7 @@ def test_check_len(clean_collection, mock_data):
 
 
 def test_check_statuses(clean_collection, mock_data):
-    """Checking statuses"""
+    """Checking statuses."""
     integrate_phrase_data(mock_data)
     statuses = [None, "highlight", "stop", "with_status", "no_status"]
     for status in statuses:

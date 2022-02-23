@@ -1,3 +1,4 @@
+"""Data fetcher endpoint tests."""
 import pytest
 from fastapi.exceptions import HTTPException
 from fastapi.testclient import TestClient
@@ -14,7 +15,7 @@ def test_simple_data_fetcher() -> None:
 
 
 def test_bad_status() -> None:
-    """Testing with non registered status"""
+    """Testing with non registered status."""
     with pytest.raises(HTTPException):
         response = client.get("http://127.0.0.1:8000/api/data-fetcher/?status=wrong")
         assert response.status_code == 400

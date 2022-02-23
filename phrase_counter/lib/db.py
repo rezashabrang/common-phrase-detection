@@ -1,11 +1,12 @@
 """Mongo Database Configs."""
-from fastapi.exceptions import HTTPException
-from pymongo import MongoClient
-from urllib import parse
+from typing import Dict, List, Union
+
 import os
-from typing import List, Dict, Union
 from hashlib import sha256
-from pymongo import DESCENDING
+from urllib import parse
+
+from fastapi.exceptions import HTTPException
+from pymongo import DESCENDING, MongoClient
 
 
 def mongo_connection() -> MongoClient:
@@ -22,9 +23,7 @@ def mongo_connection() -> MongoClient:
     return mongo_client
 
 
-def integrate_phrase_data(
-    phrase_res: List[Dict[str, object]]
-) -> None:
+def integrate_phrase_data(phrase_res: List[Dict[str, object]]) -> None:
     """Inserting or updating phrase data in mongo collection.
 
     Args:
@@ -57,18 +56,15 @@ def integrate_phrase_data(
     client.close()
 
 
-def update_status(
-    phrase: str,
-    status: str
-) -> None:
+def update_status(phrase: str, status: str) -> None:
     """Updates the status of given phrase.
 
-        Args:
-            phrase: Given keyword for status update.
-            status: stop or highlight.
+    Args:
+        phrase: Given keyword for status update.
+        status: stop or highlight.
 
-        Raises:
-            HTTPException: If no phrase is found in database.
+    Raises:
+        HTTPException: If no phrase is found in database.
     """
     # Switching to collection
     client = mongo_connection()
@@ -86,18 +82,13 @@ def update_status(
 
     # If there is not any record then raise exception
     else:
-        raise HTTPException(
-            status_code=404,
-            detail="no-phrase"
-        )
+        raise HTTPException(status_code=404, detail="no-phrase")
 
 
 def fetch_data(
-    status: Union[str, None],
-    limit: int,
-    offset: int
+    status: Union[str, None], limit: int, offset: int
 ) -> List[Dict[str, str]]:
-    """Fetching data from mongo"""
+    """Fetching data from mongo."""
     # ----------------- Client Initialization ----------------
     client = mongo_connection()
     phrasedb = client[os.getenv("MONGO_PHRASE_DB")]  # Phrase database
@@ -105,44 +96,54 @@ def fetch_data(
 
     # If no status is given fetch all of available data.
     if status is None:  # Fetching all records
-        result = list(phrase_col.find(
-            {},
-            limit=limit,
-            skip=offset,
-            projection={"_id": False, "Phrase_hash": False},
-            sort=[("Count", DESCENDING)]
-        ))
+        result = list(
+            phrase_col.find(
+                {},
+                limit=limit,
+                skip=offset,
+                projection={"_id": False, "Phrase_hash": False},
+                sort=[("Count", DESCENDING)],
+            )
+        )
     elif status == "highlight":  # Fetching highlight phrases
-        result = list(phrase_col.find(
-            {"Status": "highlight"},
-            limit=limit,
-            skip=offset,
-            projection={"_id": False, "Phrase_hash": False},
-            sort=[("Count", DESCENDING)]
-        ))
+        result = list(
+            phrase_col.find(
+                {"Status": "highlight"},
+                limit=limit,
+                skip=offset,
+                projection={"_id": False, "Phrase_hash": False},
+                sort=[("Count", DESCENDING)],
+            )
+        )
     elif status == "stop":  # Fetching stop phrases
-        result = list(phrase_col.find(
-            {"Status": "stop"},
-            limit=limit,
-            skip=offset,
-            projection={"_id": False, "Phrase_hash": False},
-            sort=[("Count", DESCENDING)]
-        ))
+        result = list(
+            phrase_col.find(
+                {"Status": "stop"},
+                limit=limit,
+                skip=offset,
+                projection={"_id": False, "Phrase_hash": False},
+                sort=[("Count", DESCENDING)],
+            )
+        )
     elif status == "with_status":  # Fetching records that status IS NOT NULL
-        result = list(phrase_col.find(
-            {"Status": {"$ne": None}},
-            limit=limit,
-            skip=offset,
-            projection={"_id": False, "Phrase_hash": False},
-            sort=[("Count", DESCENDING)]
-        ))
+        result = list(
+            phrase_col.find(
+                {"Status": {"$ne": None}},
+                limit=limit,
+                skip=offset,
+                projection={"_id": False, "Phrase_hash": False},
+                sort=[("Count", DESCENDING)],
+            )
+        )
     elif status == "no_status":  # Fetching records that status IS NULL
-        result = list(phrase_col.find(
-            {"Status": None},
-            limit=limit,
-            skip=offset,
-            projection={"_id": False, "Phrase_hash": False},
-            sort=[("Count", DESCENDING)]
-        ))
+        result = list(
+            phrase_col.find(
+                {"Status": None},
+                limit=limit,
+                skip=offset,
+                projection={"_id": False, "Phrase_hash": False},
+                sort=[("Count", DESCENDING)],
+            )
+        )
 
     return result

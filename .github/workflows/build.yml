@@ -50,9 +50,9 @@ jobs:
         --name db
         -v mongo_data:/data/db
         mongo
-        
+
     - name: Configuring mongo
-      run: >     
+      run: >
         docker exec -i db mongo -u ${{ secrets.MONGO_INITDB_ROOT_USERNAME }} -p ${{ secrets.MONGO_INITDB_ROOT_PASSWORD }}
         --eval "db.getSiblingDB('test_phrasedb').createUser({user: 'my_test_usr', pwd: 'test', roles: ['readWrite']})"
 

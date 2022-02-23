@@ -13,12 +13,12 @@ from phrase_counter.lib.db import mongo_connection
 
 @pytest.fixture(scope="session", autouse=True)
 def initializing_db():
-    """Initializing mongo database"""
+    """Initializing mongo database."""
     # ---------------- Updating test environment ----------------
     current_path = str(Path(__file__).parent)
     test_env = {}
-    with open(current_path + "/.env.test", encoding="utf-8") as f:
-        for line in f:
+    with open(current_path + "/.env.test", encoding="utf-8") as test_env_file:
+        for line in test_env_file:
             env_var, env_val = line.split("=")
             test_env[env_var] = env_val.strip()
     os.environ.update(test_env)

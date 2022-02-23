@@ -1,0 +1,2 @@
+Skipping virtualenv creation, as specified in config file.
+Success: no issues found in 19 source files

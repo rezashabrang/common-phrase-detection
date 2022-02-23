@@ -1,3 +1,4 @@
+"""Status updater enpoint tests."""
 from typing import Callable
 
 from hashlib import sha256
@@ -19,7 +20,7 @@ def test_simple_router(clean_collection: Callable[[], None]) -> None:
             "Bag": "sample",
             "Count": 1,
             "Status": None,
-            "Phrase_hash": sha256("sample".encode()).hexdigest(),
+            "Phrase_hash": sha256(b"sample").hexdigest(),
         }
     ]
     integrate_phrase_data(sample_res)
@@ -35,7 +36,7 @@ def test_simple_router_2(clean_collection: Callable[[], None]) -> None:
             "Bag": "sample",
             "Count": 1,
             "Status": None,
-            "Phrase_hash": sha256("sample".encode()).hexdigest(),
+            "Phrase_hash": sha256(b"sample").hexdigest(),
         }
     ]
     integrate_phrase_data(sample_res)

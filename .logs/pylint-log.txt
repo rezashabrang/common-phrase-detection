@@ -1,0 +1,7 @@
+Skipping virtualenv creation, as specified in config file.
+************* Module phrase_counter.routers.http_doc_processor
+phrase_counter/routers/http_doc_processor.py:7:0: E0611: No name 'BaseModel' in module 'pydantic' (no-name-in-module)
+
+------------------------------------------------------------------
+Your code has been rated at 9.74/10 (previous run: 9.74/10, +0.00)
+

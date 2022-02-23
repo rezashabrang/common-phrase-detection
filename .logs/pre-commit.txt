@@ -1,0 +1,2 @@
+An error has occurred: FatalError: git failed. Is it installed, and are you in a Git repository directory?
+Check the log at /root/.cache/pre-commit/pre-commit.log

@@ -8,7 +8,7 @@ from fastapi.openapi.utils import get_openapi
 from routers import http_data_fetcher, http_doc_processor, http_status_updater
 
 app = FastAPI()
-description = """
+DESCRIPTION = """
 API for handling common phrase detection functionalities.
 Here is what each section provides.
 <h3>Document Process</h3>
@@ -61,7 +61,7 @@ def custom_openapi():
     openapi_schema = get_openapi(
         title="Phrase API",
         version="0.0",
-        description=description,
+        description=DESCRIPTION,
         routes=app.routes,
     )
     openapi_schema["info"]["x-logo"] = {

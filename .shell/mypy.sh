@@ -1,7 +1,7 @@
 #!/bin/bash
 find . -name 'mypy.txt' -delete
 find . -name 'mypy.svg' -delete
-poetry run mypy --config-file pyproject.toml ./ | tee .logs/mypy.txt
+poetry run mypy --install-types --non-interactive --config-file pyproject.toml ./ | tee .logs/mypy.txt
 export mypy_result=$(grep 'Success' .logs/mypy.txt | cut -d\  -f1 | tr -d ':')
 echo "mypy_result:" $mypy_result
 rm -rf assets/images/mypy.svg

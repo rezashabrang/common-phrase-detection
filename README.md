@@ -1,5 +1,12 @@
 # Common Phrase Detection
-[![standard-readme compliant](https://img.shields.io/badge/standard--readme-OK-green.svg?style=flat-square)](https://github.com/RichardLitt/standard-readme)
+[![coverage report](assets/images/coverage.svg)](.logs/coverage.txt)
+[![static analysis](assets/images/mypy.svg)](.logs/mypy.txt)
+[![lint report](assets/images/pylint.svg)](.logs/pylint-log.txt)
+[![maintainability](assets/images/maintainability.svg)](.logs/maintainability.txt)
+[![complexity](assets/images/complexity.svg)](.logs/complexity.txt)
+[![Code style: black](assets/images/codestyle.svg)](https://github.com/psf/black)
+[![Pre-commit](assets/images/precommits.svg)](.pre-commit-config.yaml)
+[![license](assets/images/licence.svg)](https://github.com/rezashabrang/common-phrase-detection)
 
 This is an API python library which is developed for detecting stop phrases.
 
@@ -87,7 +94,7 @@ Here you can fetch phrases based on 4 different situation for statuses:
 
 ### API details
 
-* API Base URL 
+* API Base URL
 ```
 127.0.0.1:8000
 ```
@@ -100,4 +107,3 @@ For futher details and how to make request to each endpoint refer to the swagger
 ## Maintainers
 [Maani Beygi](https://github.com/MaaniBeigy)<br>
 [Reza Shabrang](https://github.com/rezashabrang)
-

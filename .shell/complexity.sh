@@ -1,6 +1,6 @@
 #!/bin/bash
 find . -name 'complexity.txt' -delete
-radon cc stop_counter -s -a >>.logs/complexity.txt
+radon cc phrase_counter -s -a >>.logs/complexity.txt
 export complexity=$(grep 'Average complexity:' .logs/complexity.txt | cut -d\  -f3)
 echo "complexity:" $complexity
 rm -rf assets/images/complexity.svg

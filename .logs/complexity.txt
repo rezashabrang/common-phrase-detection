@@ -1,0 +1,25 @@
+phrase_counter/logger.py
+    F 5:0 get_logger - A (1)
+phrase_counter/main.py
+    F 50:0 get_token_header - A (2)
+    F 57:0 custom_openapi - A (2)
+phrase_counter/lib/cleaner.py
+    F 9:0 fetch_page_text - A (4)
+    F 39:0 cleaner - A (1)
+phrase_counter/lib/phrase_detector.py
+    F 12:0 phrase_counter - A (4)
+phrase_counter/lib/db.py
+    F 88:0 fetch_data - B (6)
+    F 26:0 integrate_phrase_data - A (4)
+    F 59:0 update_status - A (2)
+    F 12:0 mongo_connection - A (1)
+phrase_counter/routers/http_doc_processor.py
+    F 30:0 process_document - A (3)
+    C 18:0 PhraseDocument - A (1)
+phrase_counter/routers/http_status_updater.py
+    F 19:0 read_phrase_status - B (7)
+phrase_counter/routers/http_data_fetcher.py
+    F 14:0 fetch_phrases - A (5)
+
+14 blocks (classes, functions, methods) analyzed.
+Average complexity: A (3.0714285714285716)

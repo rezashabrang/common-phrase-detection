@@ -1,0 +1,5 @@
+Skipping virtualenv creation, as specified in config file.
+Installing dependencies from lock file
+Warning: The lock file is not up to date with the latest changes in pyproject.toml. You may be getting outdated dependencies. Run update to update them.
+
+No dependencies to install or update

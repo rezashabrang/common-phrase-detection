@@ -16,10 +16,10 @@ services:
             MONGO_PHRASE_COL: common_phrase
             MONGO_HOST: db
             MONGO_PORT: 27017
-            API_KEY: 27def524e3f868626a0c3eaf6ff79346a9143e1399c78a3049a52b338ed8dcd175cb07ea5ce9baa8cc65d96883565d283a65a2fc0fb5c270574734f3e21399acd28f351c3e581ca844e93b63490909a292465455cefaf4d06409fd1e7da396f94ef25cdc15641eee095cd1a7365c2262ea1904ef77bc4ed6bed794506b61cf6c5c5913c82e7fcaef6b8cd5c0d016d77eb338234c7f93b123d046a1ddee023d55e68bb4adfcd9d8778c382ccfafbc142864b8455abb2d59dc4b32b5d54aa093ff5eb5ce4afdddc40d889c289656de48e2b2fef7f3426a4d9e612d61ff641acb4a7947b88abb9fa0f0493bfa366ccef664c418313178d353c57918a3272230353666b7e64d718ad7025f8239429e48922adbec41d0cc94132df79b819e62e86197a494dc435571b13f955b9a7920df5e443adf300a835f956ed64fc565702f6b7b
+            API_KEY: 27def524e3f
         volumes:
-            - ./phrase_counter:/app/phrase_counter
-            - ./tests:/app/tests
+            - .:/app/
+            - /app/.venv
         ports:
             - "8000:80"
     db:

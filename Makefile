@@ -120,3 +120,12 @@ maintainability:
 .PHONY: interrogate
 interrogate:
 	poetry run interrogate -v phrase_counter
+
+.PHONY: precommit
+precommit:
+	pre-commit run --all-files
+
+.PHONY: cov-badge
+cov-badge:
+	PYTHONPATH=$(PYTHONPATH) poetry run pytest -c pyproject.toml --cov-report=html --cov=phrase_counter tests/
+	poetry run coverage-badge -o assets/images/coverage.svg -f

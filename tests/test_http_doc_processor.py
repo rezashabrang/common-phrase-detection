@@ -1,7 +1,6 @@
+"""Testing doc-process endpoint."""
 from typing import Callable
 
-import pytest
-from fastapi.exceptions import HTTPException
 from fastapi.testclient import TestClient
 
 from phrase_counter.routers.http_doc_processor import router
@@ -18,9 +17,8 @@ def test_simple_router(clean_collection: Callable[[], None]) -> None:
     assert response.status_code == 201
 
 
-
-def test_with_sample_page(test_page) -> None:
-    """Testing with sample HTML page"""
+def test_with_sample_page(test_page: str) -> None:
+    """Testing with sample HTML page."""
     sample_payload = {"document": test_page}
     response = client.post(
         "http://127.0.0.1:8000/api/doc-process/?doc_type=HTML", json=sample_payload
