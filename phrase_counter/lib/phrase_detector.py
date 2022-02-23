@@ -11,7 +11,7 @@ def phrase_counter(doc: str, doc_type: str = "text") -> Any:
 
     Args:
         doc: Document to be processed.
-        doc_type: Either a url or text.
+        doc_type: URL, TEXT, or HTML.
 
     Returns:
         Dataframe with counts for each word.
@@ -20,10 +20,18 @@ def phrase_counter(doc: str, doc_type: str = "text") -> Any:
         Exception: If unkown value is given for doc_type.
     """
     # ---------------- Fetching the page text ----------------
-    if doc_type == "url":
+    # Fetching a page from URL
+    if doc_type == "URL":
         dirty_text = fetch_page_text(url=doc)
-    elif doc_type == "text":
+
+    # Processing HTML
+    elif doc_type == "HTML":
         dirty_text = fetch_page_text(webpage=doc)
+
+    # Raw text
+    elif doc_type == "TEXT":
+        dirty_text = doc
+
     else:
         raise Exception("Unknown value for doc_type argument.")
 

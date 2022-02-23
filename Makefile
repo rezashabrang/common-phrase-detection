@@ -37,7 +37,7 @@ formatting: codestyle
 #* Linting
 .PHONY: test
 test:
-	poetry run pytest -c pyproject.toml
+	poetry run pytest -c pyproject.toml --cov-report=html --cov=phrase_counter tests/
 
 .PHONY: extrabadges
 extrabadges:
@@ -50,7 +50,7 @@ release:
 
 .PHONY: coverage
 coverage:
-	poetry run pytest --cov-report html --cov phrase_counter tests/
+	poetry run coverage report --rcfile pyproject.toml
 
 .PHONY: coverage-badge
 coverage-badge:
@@ -69,7 +69,7 @@ change-codestyle:
 
 .PHONY: mypy
 mypy:
-	poetry run mypy --config-file pyproject.toml ./
+	poetry run mypy --install-types --non-interactive --config-file pyproject.toml ./
 
 .PHONY: check-safety
 check-safety:
