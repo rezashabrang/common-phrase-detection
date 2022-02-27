@@ -23,5 +23,5 @@ def test_check_keys_output(test_page: str) -> None:
     output = phrase_counter(doc=test_page, doc_type="HTML")
     sample_element = output[0]
     assert all(
-        key in sample_element for key in ["Bag", "Phrase_hash", "Count", "Status"]
+        key in sample_element for key in ["bag", "phrase_hash", "count", "status"]
     )

@@ -9,11 +9,9 @@ ENV LANG=C.UTF-8 \
     PYTHONPATH=/app/phrase_counter \
     PYTHONDONTWRITEBYTECODE=1 \
     PYTHONUNBUFFERED=1
-
-
-
+    
 # install dependencies
-RUN apt update && apt upgrade -y && apt install curl -y && apt install build-essential python3-dev -y
+RUN apt update && apt upgrade -y && apt install curl -y && apt install build-essential python3-dev libicu-dev pkg-config -y
 
 COPY pyproject.toml /app
 

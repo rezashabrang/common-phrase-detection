@@ -37,12 +37,12 @@ def integrate_phrase_data(phrase_res: List[Dict[str, object]]) -> None:
     values_to_be_inserted = []
 
     for item in phrase_res:
-        query = {"Phrase_hash": item["Phrase_hash"]}
+        query = {"phrase_hash": item["phrase_hash"]}
 
         # If hash already exists update the count field.
         query_res = phrase_col.find(query)
         if list(query_res):
-            update_query = {"$inc": {"Count": item["Count"]}}
+            update_query = {"$inc": {"count": item["count"]}}
             phrase_col.update_one(query, update_query)
 
         # If it is not already in database then save it for later bulk insertion
@@ -73,11 +73,11 @@ def update_status(phrase: str, status: str) -> None:
     phrase_hash = sha256(phrase.encode()).hexdigest()  # Hashing the phrase
 
     # Finding the phrase in db
-    query = {"Phrase_hash": phrase_hash}
+    query = {"phrase_hash": phrase_hash}
     query_res = phrase_col.find(query)
     if list(query_res):
         # Updating status
-        update_query = {"$set": {"Status": status}}
+        update_query = {"$set": {"status": status}}
         phrase_col.update_one(query, update_query)
 
     # If there is not any record then raise exception
@@ -101,48 +101,48 @@ def fetch_data(
                 {},
                 limit=limit,
                 skip=offset,
-                projection={"_id": False, "Phrase_hash": False},
-                sort=[("Count", DESCENDING)],
+                projection={"_id": False, "phrase_hash": False},
+                sort=[("count", DESCENDING)],
             )
         )
     elif status == "highlight":  # Fetching highlight phrases
         result = list(
             phrase_col.find(
-                {"Status": "highlight"},
+                {"status": "highlight"},
                 limit=limit,
                 skip=offset,
-                projection={"_id": False, "Phrase_hash": False},
-                sort=[("Count", DESCENDING)],
+                projection={"_id": False, "phrase_hash": False},
+                sort=[("count", DESCENDING)],
             )
         )
     elif status == "stop":  # Fetching stop phrases
         result = list(
             phrase_col.find(
-                {"Status": "stop"},
+                {"status": "stop"},
                 limit=limit,
                 skip=offset,
-                projection={"_id": False, "Phrase_hash": False},
-                sort=[("Count", DESCENDING)],
+                projection={"_id": False, "phrase_hash": False},
+                sort=[("count", DESCENDING)],
             )
         )
     elif status == "with_status":  # Fetching records that status IS NOT NULL
         result = list(
             phrase_col.find(
-                {"Status": {"$ne": None}},
+                {"status": {"$ne": None}},
                 limit=limit,
                 skip=offset,
-                projection={"_id": False, "Phrase_hash": False},
-                sort=[("Count", DESCENDING)],
+                projection={"_id": False, "phrase_hash": False},
+                sort=[("count", DESCENDING)],
             )
         )
     elif status == "no_status":  # Fetching records that status IS NULL
         result = list(
             phrase_col.find(
-                {"Status": None},
+                {"status": None},
                 limit=limit,
                 skip=offset,
-                projection={"_id": False, "Phrase_hash": False},
-                sort=[("Count", DESCENDING)],
+                projection={"_id": False, "phrase_hash": False},
+                sort=[("count", DESCENDING)],
             )
         )
 

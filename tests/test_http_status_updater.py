@@ -1,4 +1,4 @@
-"""Status updater enpoint tests."""
+"""status updater enpoint tests."""
 from typing import Callable
 
 from hashlib import sha256
@@ -17,10 +17,10 @@ def test_simple_router(clean_collection: Callable[[], None]) -> None:
     """Simple test for checking router functionality."""
     sample_res = [
         {
-            "Bag": "sample",
-            "Count": 1,
-            "Status": None,
-            "Phrase_hash": sha256(b"sample").hexdigest(),
+            "bag": "sample",
+            "count": 1,
+            "status": None,
+            "phrase_hash": sha256(b"sample").hexdigest(),
         }
     ]
     integrate_phrase_data(sample_res)
@@ -33,10 +33,10 @@ def test_simple_router_2(clean_collection: Callable[[], None]) -> None:
     """Simple test for checking router functionality."""
     sample_res = [
         {
-            "Bag": "sample",
-            "Count": 1,
-            "Status": None,
-            "Phrase_hash": sha256(b"sample").hexdigest(),
+            "bag": "sample",
+            "count": 1,
+            "status": None,
+            "phrase_hash": sha256(b"sample").hexdigest(),
         }
     ]
     integrate_phrase_data(sample_res)
@@ -49,10 +49,10 @@ def test_wrong_code(clean_collection: Callable[[], None]) -> None:
     """Testing when a wrong status code is given."""
     sample_res = [
         {
-            "Bag": "sample",
-            "Count": 1,
-            "Status": None,
-            "Phrase_hash": "Some random hash",
+            "bag": "sample",
+            "count": 1,
+            "status": None,
+            "phrase_hash": "Some random hash",
         }
     ]
     integrate_phrase_data(sample_res)

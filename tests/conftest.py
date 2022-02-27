@@ -69,12 +69,12 @@ def mock_data():
     data = []
     for _ in range(n_data):
         sample = {
-            "Bag": "".join(
+            "bag": "".join(
                 random.choices(string.ascii_lowercase + " ", k=random.randint(5, 20))
             ),
-            "Count": random.randint(1, 4),
-            "Status": random.choice(status_list),
-            "Phrase_hash": "".join(
+            "count": random.randint(1, 4),
+            "status": random.choice(status_list),
+            "phrase_hash": "".join(
                 random.choices(string.ascii_lowercase + string.digits, k=16)
             ),
         }

@@ -36,14 +36,15 @@ importlib_metadata = {version = "^4.5.0", python = "<3.8"}
 cleaning-utils = "*"
 beautifulsoup4 = "*"
 requests = "*"
-types-requests = "*"
 scikit-learn = "*"
 pandas = "*"
 fastapi = "*"
 pymongo = "*"
 uvicorn = {version = "^0.15.0", extras = ["standard"]}
 python-multipart = "*"
-pydantic = "*"
+polyglot = "*"
+PyICU = "^2.8.1"
+pycld2 = "^0.41"
 
 
 [tool.poetry.dev-dependencies]
@@ -72,6 +73,10 @@ docstr-coverage = "^2.1.1"
 interrogate = "^1.5.0"
 autopep8 = "*"
 toml = "^0.10.2"
+pydantic = "*"
+types-requests = "*"
+openpyxl = "*"
+
 
 [tool.black]
 # https://github.com/psf/black

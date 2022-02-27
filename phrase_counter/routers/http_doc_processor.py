@@ -47,9 +47,9 @@ async def process_document(
         return res
 
     except HTTPException as err:
-        logger.info(err)
+        logger.error(err)
         raise HTTPException(status_code=400) from err
 
     except Exception as err:
-        logger.info(err)
+        logger.error(err)
         raise HTTPException(status_code=400) from err

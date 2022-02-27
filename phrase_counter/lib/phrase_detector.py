@@ -1,5 +1,5 @@
 """Main functions for counting phrases."""
-from typing import Any
+from typing import Any, Optional
 
 from hashlib import sha256
 
@@ -7,6 +7,16 @@ import pandas as pd
 from sklearn.feature_extraction.text import CountVectorizer
 
 from .cleaner import cleaner, fetch_page_text
+
+from pathlib import Path
+
+# ---------------------- Getting stop words list ----------------------
+STOP_PATH = f"{Path(__file__).parent}/static/stop-words.txt"
+with open(STOP_PATH, "r", encoding="utf-8") as stop_file:
+    STOP_LIST = stop_file.readlines()
+
+# Removing newlines
+STOP_LIST = list(map(str.strip, STOP_LIST))
 
 
 def phrase_counter(doc: str, doc_type: str = "text") -> Any:
@@ -39,24 +49,62 @@ def phrase_counter(doc: str, doc_type: str = "text") -> Any:
         raise Exception("Unknown value for doc_type argument.")
 
     cleaned_text = cleaner(dirty_text)
-    # ----------------- Counter Section -----------------
-    # Initializing vector
-    count_vector = CountVectorizer(ngram_range=(1, 5), encoding="utf-8")
 
-    # Fit on text
-    count_data = count_vector.fit_transform([cleaned_text])
+    # ----------------- Initialization -----------------
+    phrase_df = pd.DataFrame(columns=["bag", "count"])
 
-    # ----------------- Dataframe creation -----------------
-    phrase_df = pd.DataFrame(columns=["Bag", "Count"])
-    phrase_df["Bag"] = count_vector.get_feature_names_out().tolist()
-    phrase_df["Count"] = count_data.toarray()[0].tolist()
+    # ----------------- Splitting -----------------
+    for text_part in cleaned_text.split("."):
 
-    # ----------------- Additional Metadata -----------------
-    phrase_df["Phrase_hash"] = phrase_df.apply(
-        lambda row: sha256(row["Bag"].encode()).hexdigest(), axis=1
+        # ----------------- Counter Section -----------------
+        # Initializing vector
+        count_vector = CountVectorizer(ngram_range=(1, 5), encoding="utf-8")
+        try:
+            # Fit on text
+            count_data = count_vector.fit_transform([text_part])
+        except ValueError:
+            continue
+
+        # ----------------- Dataframe creation -----------------
+        temp_df = pd.DataFrame(columns=["bag", "count"])
+        temp_df["bag"] = count_vector.get_feature_names_out().tolist()
+        temp_df["count"] = count_data.toarray()[0].tolist()
+
+        # Concating results
+        phrase_df = pd.concat([phrase_df, temp_df])
+
+    # Creating phrase hash
+    phrase_df["phrase_hash"] = phrase_df.apply(
+        lambda row: sha256(row["bag"].encode()).hexdigest(), axis=1
     )
-    phrase_df["Status"] = None
 
-    json_result = phrase_df.to_dict(orient="records")  # Converting result to JSON
+    # Aggregating for removing duplicate values (rows with same hash or phrase)
+    phrase_df = phrase_df.groupby(["bag", "phrase_hash"]).agg(
+        {"count": "sum"}
+    ).reset_index()
+
+    # Changing status to suggested stop for phrases that conatin stop words
+    phrase_df["status"] = phrase_df.apply(
+        lambda row: stop_word_detector(row["bag"]), axis=1
+    )
+
+    # Converting result to JSON
+    json_result = phrase_df.to_dict(orient="records")
 
     return json_result
+
+
+def stop_word_detector(phrase: str) -> Optional[str]:
+    """Find stop phrases based on existing list of stop words.
+
+        Args:
+            phrase: text of the phrase.
+
+        Returns:
+            status if stop words are in phrase.
+    """
+    # If there is any stop word in the phrase then it maybe a stop phrase
+    if any(stop_word in phrase.split() for stop_word in STOP_LIST):
+        return "suggested-stop"
+
+    return None

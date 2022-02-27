@@ -4,6 +4,7 @@ import re
 import requests
 from bs4 import BeautifulSoup
 from cleaning_utils import clear_stop_char, replace_arabic_char
+from polyglot.detect import Detector
 
 
 def fetch_page_text(url: str = "", webpage: str = "") -> str:
@@ -45,9 +46,21 @@ def cleaner(dirty_text: str) -> str:
     Returns:
         Final text ready for integration in NLP algorithms.
     """
+    # ------------------- Langugae detection -------------------
+    detector = Detector(dirty_text)
+    lang = detector.language.code
     # ------------------- Linguistic phase -------------------
-    processed_text = replace_arabic_char(dirty_text)
-    processed_text = clear_stop_char(processed_text)
+    if lang == "fa":
+        processed_text = replace_arabic_char(dirty_text)
+    elif lang == "ar":
+        processed_text = replace_arabic_char(dirty_text, letter=False)
+    else:
+        processed_text = dirty_text
+
+    processed_text = clear_stop_char(
+        processed_text,
+        replace_char=".",
+    )
 
     # ------------------- Trimmer phase -------------------
     processed_text = processed_text.replace("\t", " ").replace("\n", " ").strip()

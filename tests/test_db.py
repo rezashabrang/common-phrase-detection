@@ -19,17 +19,17 @@ def test_insert_true(clean_collection: Callable[[], None]) -> None:
     """Testing that insertion is happening."""
     sample_res = [
         {
-            "Bag": "test_bag",
-            "Count": 5,
-            "Status": None,
-            "Phrase_hash": "Some random hash",
+            "bag": "test_bag",
+            "count": 5,
+            "status": None,
+            "phrase_hash": "Some random hash",
         }
     ]
     integrate_phrase_data(sample_res)
     test_client = mongo_connection()
     test_db = test_client[os.getenv("MONGO_PHRASE_DB")]
     test_col = test_db[os.getenv("MONGO_PHRASE_COL")]
-    mongo_rows = test_col.find({"Phrase_hash": "Some random hash"})
+    mongo_rows = test_col.find({"phrase_hash": "Some random hash"})
 
     assert list(mongo_rows)
 
@@ -38,10 +38,10 @@ def test_update_true(clean_collection: Callable[[], None]) -> None:
     """Testing the update is happening in mongo."""
     sample_res = [
         {
-            "Bag": "test_bag",
-            "Count": 5,
-            "Status": None,
-            "Phrase_hash": "Some random hash",
+            "bag": "test_bag",
+            "count": 5,
+            "status": None,
+            "phrase_hash": "Some random hash",
         }
     ]
     integrate_phrase_data(sample_res)
@@ -49,18 +49,18 @@ def test_update_true(clean_collection: Callable[[], None]) -> None:
     test_client = mongo_connection()
     test_db = test_client[os.getenv("MONGO_PHRASE_DB")]
     test_col = test_db[os.getenv("MONGO_PHRASE_COL")]
-    mongo_rows = test_col.find({"Phrase_hash": "Some random hash"})
-    assert list(mongo_rows)[0]["Count"] == 10
+    mongo_rows = test_col.find({"phrase_hash": "Some random hash"})
+    assert list(mongo_rows)[0]["count"] == 10
 
 
 def test_update_status_true(clean_collection: Callable[[], None]) -> None:
     """Testing that status update is working."""
     sample_res = [
         {
-            "Bag": "test_bag",
-            "Count": 5,
-            "Status": None,
-            "Phrase_hash": sha256(b"test_bag").hexdigest(),
+            "bag": "test_bag",
+            "count": 5,
+            "status": None,
+            "phrase_hash": sha256(b"test_bag").hexdigest(),
         }
     ]
     integrate_phrase_data(sample_res)
@@ -68,8 +68,8 @@ def test_update_status_true(clean_collection: Callable[[], None]) -> None:
     test_client = mongo_connection()
     test_db = test_client[os.getenv("MONGO_PHRASE_DB")]
     test_col = test_db[os.getenv("MONGO_PHRASE_COL")]
-    mongo_rows = test_col.find({"Phrase_hash": sample_res[0]["Phrase_hash"]})
-    status = list(mongo_rows)[0]["Status"]
+    mongo_rows = test_col.find({"phrase_hash": sample_res[0]["phrase_hash"]})
+    status = list(mongo_rows)[0]["status"]
     assert status == "highlight"
 
 
@@ -92,7 +92,7 @@ def test_check_sort(clean_collection, mock_data):
     res = fetch_data(status=None, limit=10, offset=0)
 
     for i in range(len(res) - 1):
-        assert res[i]["Count"] >= res[i + 1]["Count"]
+        assert res[i]["count"] >= res[i + 1]["count"]
 
 
 def test_check_keys(clean_collection, mock_data):
@@ -100,9 +100,9 @@ def test_check_keys(clean_collection, mock_data):
     integrate_phrase_data(mock_data)
     res = fetch_data(status=None, limit=10, offset=0)
     keys_list = res[0].keys()
-    assert "Bag" in keys_list
-    assert "Status" in keys_list
-    assert "Count" in keys_list
+    assert "bag" in keys_list
+    assert "status" in keys_list
+    assert "count" in keys_list
 
 
 def test_check_len(clean_collection, mock_data):
@@ -121,4 +121,4 @@ def test_check_statuses(clean_collection, mock_data):
         assert res
         assert len(res) == 10
         for i in range(len(res) - 1):
-            assert res[i]["Count"] >= res[i + 1]["Count"]
+            assert res[i]["count"] >= res[i + 1]["count"]
