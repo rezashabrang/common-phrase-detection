@@ -28,32 +28,32 @@ jobs:
 
     - name: Run style checks
       run: |
-        docker exec -i phrase_ci make check-codestyle
+        docker exec -i phrase_detector make check-codestyle
 
     - name: Run tests
       run: |
-        docker exec -i phrase_ci make test
+        docker exec -i phrase_detector make test
 
     - name: Run coverage
       run: |
-        docker exec -i phrase_ci make coverage
+        docker exec -i phrase_detector make coverage
 
     - name: Run safety checks
       run: |
-        docker exec -i phrase_ci make check-safety
+        docker exec -i phrase_detector make check-safety
 
     - name: Run mypy checks
       run: |
-        docker exec -i phrase_ci make mypy
+        docker exec -i phrase_detector make mypy
 
     - name: Run complexity
       run: |
-        docker exec -i phrase_ci make complexity
+        docker exec -i phrase_detector make complexity
 
     - name: Run maintainability
       run: |
-        make maintainability
+        docker exec -i phrase_detector make maintainability
 
     - name: Run interrogate
       run: |
-        docker exec -i phrase_ci make interrogate
+        docker exec -i phrase_detector make interrogate
