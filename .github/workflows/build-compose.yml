@@ -23,7 +23,7 @@ jobs:
 
     - name: Configuring mongo
       run: >
-        docker exec -i db mongo -u ${{ secrets.MONGO_INITDB_ROOT_USERNAME }} -p ${{ secrets.MONGO_INITDB_ROOT_PASSWORD }}
+        docker exec -i phrase-db mongo -u ${{ secrets.MONGO_INITDB_ROOT_USERNAME }} -p ${{ secrets.MONGO_INITDB_ROOT_PASSWORD }}
         --eval "db.getSiblingDB('test_phrasedb').createUser({user: 'my_test_usr', pwd: 'test', roles: ['readWrite']})"
 
     - name: Run style checks

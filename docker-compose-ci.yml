@@ -22,9 +22,9 @@ services:
             - /app/.venv
         ports:
             - "8000:80"
-    db:
+    phrase-db:
         image: mongo
-        container_name: db
+        container_name: phrase-db
         restart: always
         environment:
             MONGO_INITDB_ROOT_USERNAME: root
