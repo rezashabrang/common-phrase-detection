@@ -39,12 +39,12 @@ requests = "*"
 scikit-learn = "*"
 pandas = "*"
 fastapi = "*"
-pymongo = "*"
 uvicorn = {version = "^0.15.0", extras = ["standard"]}
 python-multipart = "*"
 polyglot = "*"
 PyICU = "^2.8.1"
 pycld2 = "^0.41"
+python-arango = "*"
 
 
 [tool.poetry.dev-dependencies]

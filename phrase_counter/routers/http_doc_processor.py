@@ -2,7 +2,7 @@
 from typing import Dict
 
 from fastapi import APIRouter, HTTPException, Query
-from lib.db import integrate_phrase_data
+from lib.db import integrate_phrase_data, prepare_phrase_data
 from lib.phrase_detector import phrase_counter
 from pydantic import BaseModel
 
@@ -41,7 +41,13 @@ async def process_document(
     """
     try:
         phrase_count_res = phrase_counter(doc=doc.document, doc_type=doc_type)
-        integrate_phrase_data(phrase_count_res)
+        phrase_res, edge_res = prepare_phrase_data(phrase_count_res)
+
+        # Insert nodes
+        integrate_phrase_data(phrase_res, type_data="vertex")
+
+        # Insert edges
+        integrate_phrase_data(edge_res, type_data="edge")
 
         res = {"message": "Results integration done."}
         return res

@@ -1,0 +1,49 @@
+name: Standard CI
+
+on:
+  push:
+    branches-ignore:
+      - 'main'
+
+jobs:
+  general-checks:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ["3.8", "3.9", "3.10"]
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up Python ${{ matrix.python-version }}
+      uses: actions/setup-python@v2.3.1
+      with:
+        python-version: ${{ matrix.python-version }}
+
+    - name: Install dependencies
+      run: |
+        make install
+
+    - name: Run style checks
+      run: |
+        make check-codestyle
+
+    - name: Run safety checks
+      run: |
+        make check-safety
+      continue-on-error: true
+
+    - name: Run mypy checks
+      run: |
+        make mypy
+
+    - name: Run complexity
+      run: |
+        make complexity
+
+    - name: Run maintainability
+      run: |
+        make maintainability
+
+    - name: Run interrogate
+      run: |
+        make interrogate

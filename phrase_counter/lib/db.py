@@ -1,60 +1,104 @@
 """Mongo Database Configs."""
-from typing import Dict, List, Union
+from typing import Collection, Dict, List, Union
 
 import os
 from hashlib import sha256
 from urllib import parse
 
 from fastapi.exceptions import HTTPException
-from pymongo import DESCENDING, MongoClient
+from arango import ArangoClient
+import pandas as pd
+from pandas import DataFrame
+from itertools import combinations
 
 
-def mongo_connection() -> MongoClient:
-    """Connecting to mongo."""
-    username = parse.quote_plus(str(os.getenv("MONGO_USERNAME")))
-    password = parse.quote_plus(str(os.getenv("MONGO_PASSWORD")))
-    host = os.getenv("MONGO_HOST")
-    port = os.getenv("MONGO_PORT")
-    database = os.getenv("MONGO_PHRASE_DB")
-    mongo_client = MongoClient(
-        f"mongodb://{username}:{password}@{host}:{port}/?authsource={database}"
+def arango_connection() -> ArangoClient:
+    """Connecting to arango."""
+    host = os.getenv("ARANGO_HOST")
+    port = os.getenv("ARANGO_PORT")
+    arango_client = ArangoClient(
+        hosts=f"http://{host}:{port}"
     )
 
-    return mongo_client
+    return arango_client
 
 
-def integrate_phrase_data(phrase_res: List[Dict[str, object]]) -> None:
-    """Inserting or updating phrase data in mongo collection.
+def prepare_phrase_data(dataframe: DataFrame):
+    """Converting phrase dataframe and creating edges for integration
+
+        Args:
+            dataframe: populated phrase dataframe
+
+    """
+    vertex_col_name = os.getenv("ARANGO_VERTEX_COLLECTION")
+
+    phrase_hashes = dataframe["phrase_hash"]
+    dataframe = dataframe.rename(columns={"phrase_hash": "_key"})
+
+    # Finding all possible permutation of 2 for phrases
+    phrase_relations = combinations(phrase_hashes, 2)
+
+    # --------------- Creating edge dataframe ---------------
+    # Inserting combinations
+    edge_df = pd.DataFrame(phrase_relations, columns=["_from", "_to"])
+
+    # Creating key value
+    edge_df["_key"] = edge_df.apply(
+        lambda row: row["_from"] + "_" + row["_to"], axis=1
+    )
+
+    edge_df["_from"] = vertex_col_name + "/" + edge_df["_from"].astype(str)
+    edge_df["_to"] = vertex_col_name + "/" + edge_df["_to"].astype(str)
+    edge_df["count"] = 1
+
+    phrase_col = dataframe.to_dict(orient="records")
+    edge_col = edge_df.to_dict(orient="records")
+
+    return phrase_col, edge_col
+
+
+def integrate_phrase_data(
+    result: Dict[str, int],
+    type_data="vertex"
+) -> None:
+    """Inserting or updating phrase data in arango collection.
 
     Args:
         phrase_res: JSON result of counted phrases.
+        edge_res: JSON result of edges.
     """
-    # Switching to collection
-    client = mongo_connection()
-    phrasedb = client[os.getenv("MONGO_PHRASE_DB")]  # Phrase database
-    phrase_col = phrasedb[os.getenv("MONGO_PHRASE_COL")]  # Phrase collection
-    # Initializing bulk insertion list
-    values_to_be_inserted = []
+    # ------------------ Initialization & Connecting to database ------------------
+    vertex_col_name = os.getenv("ARANGO_VERTEX_COLLECTION")
+    edge_col_name = os.getenv("ARANGO_EDGE_COLLECTION")
+    username = os.getenv("ARANGO_USER")
+    password = os.getenv("ARANGO_PASS")
+    database = os.getenv("ARANGO_DATABASE")
+    client = arango_connection()
+    phrase_db = client.db(database, username=username, password=password)
 
-    for item in phrase_res:
-        query = {"phrase_hash": item["phrase_hash"]}
+    if type_data == "vertex":
+        collection = phrase_db.collection(vertex_col_name)
+    elif type_data == "edge":
+        collection = phrase_db.collection(edge_col_name)
 
-        # If hash already exists update the count field.
-        query_res = phrase_col.find(query)
-        if list(query_res):
-            update_query = {"$inc": {"count": item["count"]}}
-            phrase_col.update_one(query, update_query)
+    bulk_insert = []  # initializing bulk insert list
 
-        # If it is not already in database then save it for later bulk insertion
+    # If record exists then update it otherwise append to bulk insert list
+    for item in result:
+        find_query = {"_key": item["_key"]}
+        find_res = list(collection.find(find_query))
+        if find_res:
+            old_count = find_res[0]["count"]
+            collection.update_match(find_query, {"count": old_count + 1})
         else:
-            values_to_be_inserted.append(item)
+            bulk_insert.append(item)
 
-    # if value to be inserted list is not empty then bulk insert the results.
-    if values_to_be_inserted:
-        phrase_col.insert_many(values_to_be_inserted)
+    collection.import_bulk(bulk_insert)
 
     client.close()
 
+
+# -------------------------------------------------------------------------------------
 
 def update_status(phrase: str, status: str) -> None:
     """Updates the status of given phrase.
@@ -66,23 +110,7 @@ def update_status(phrase: str, status: str) -> None:
     Raises:
         HTTPException: If no phrase is found in database.
     """
-    # Switching to collection
-    client = mongo_connection()
-    phrasedb = client[os.getenv("MONGO_PHRASE_DB")]  # Phrase database
-    phrase_col = phrasedb[os.getenv("MONGO_PHRASE_COL")]  # Phrase collection
-    phrase_hash = sha256(phrase.encode()).hexdigest()  # Hashing the phrase
-
-    # Finding the phrase in db
-    query = {"phrase_hash": phrase_hash}
-    query_res = phrase_col.find(query)
-    if list(query_res):
-        # Updating status
-        update_query = {"$set": {"status": status}}
-        phrase_col.update_one(query, update_query)
-
-    # If there is not any record then raise exception
-    else:
-        raise HTTPException(status_code=404, detail="no-phrase")
+    pass
 
 
 def fetch_data(
@@ -90,60 +118,4 @@ def fetch_data(
 ) -> List[Dict[str, str]]:
     """Fetching data from mongo."""
     # ----------------- Client Initialization ----------------
-    client = mongo_connection()
-    phrasedb = client[os.getenv("MONGO_PHRASE_DB")]  # Phrase database
-    phrase_col = phrasedb[os.getenv("MONGO_PHRASE_COL")]  # Phrase collection
-
-    # If no status is given fetch all of available data.
-    if status is None:  # Fetching all records
-        result = list(
-            phrase_col.find(
-                {},
-                limit=limit,
-                skip=offset,
-                projection={"_id": False, "phrase_hash": False},
-                sort=[("count", DESCENDING)],
-            )
-        )
-    elif status == "highlight":  # Fetching highlight phrases
-        result = list(
-            phrase_col.find(
-                {"status": "highlight"},
-                limit=limit,
-                skip=offset,
-                projection={"_id": False, "phrase_hash": False},
-                sort=[("count", DESCENDING)],
-            )
-        )
-    elif status == "stop":  # Fetching stop phrases
-        result = list(
-            phrase_col.find(
-                {"status": "stop"},
-                limit=limit,
-                skip=offset,
-                projection={"_id": False, "phrase_hash": False},
-                sort=[("count", DESCENDING)],
-            )
-        )
-    elif status == "with_status":  # Fetching records that status IS NOT NULL
-        result = list(
-            phrase_col.find(
-                {"status": {"$ne": None}},
-                limit=limit,
-                skip=offset,
-                projection={"_id": False, "phrase_hash": False},
-                sort=[("count", DESCENDING)],
-            )
-        )
-    elif status == "no_status":  # Fetching records that status IS NULL
-        result = list(
-            phrase_col.find(
-                {"status": None},
-                limit=limit,
-                skip=offset,
-                projection={"_id": False, "phrase_hash": False},
-                sort=[("count", DESCENDING)],
-            )
-        )
-
-    return result
+    pass

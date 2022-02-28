@@ -8,14 +8,14 @@ services:
         image: phrase-counter
         container_name: phrase-counter
         environment:
-            MONGO_INITDB_ROOT_USERNAME: ${MONGO_INITDB_ROOT_USERNAME}
-            MONGO_INITDB_ROOT_PASSWORD: ${MONGO_INITDB_ROOT_PASSWORD}
-            MONGO_USERNAME: ${MONGO_USERNAME}
-            MONGO_PASSWORD: ${MONGO_PASSWORD}
-            MONGO_PHRASE_DB: ${MONGO_PHRASE_DB}
-            MONGO_PHRASE_COL: ${MONGO_PHRASE_COL}
-            MONGO_HOST: ${MONGO_HOST}
-            MONGO_PORT: ${MONGO_PORT}
+            ARANGO_ROOT_PASSWORD: ${ARANGO_ROOT_PASSWORD}
+            ARANGO_DATABASE: ${ARANGO_DATABASE}
+            ARANGO_VERTEX_COLLECTION: ${ARANGO_VERTEX_COLLECTION}
+            ARANGO_EDGE_COLLECTION: ${ARANGO_EDGE_COLLECTION}
+            ARANGO_USER: ${ARANGO_USER}
+            ARANGO_PASS: ${ARANGO_PASS}
+            ARANGO_HOST: ${ARANGO_HOST}
+            ARANGO_PORT: ${ARANGO_PORT}
             API_KEY: ${API_KEY}
         volumes:
             - .:/app/
@@ -23,27 +23,19 @@ services:
         ports:
             - "8000:80"
     phrase-db:
-        image: mongo
+        image: arangodb
         container_name: phrase-db
         restart: always
         environment:
-            MONGO_INITDB_ROOT_USERNAME: ${MONGO_INITDB_ROOT_USERNAME}
-            MONGO_INITDB_ROOT_PASSWORD: ${MONGO_INITDB_ROOT_PASSWORD}
-            MONGO_USERNAME: ${MONGO_USERNAME}
-            MONGO_PASSWORD: ${MONGO_PASSWORD}
-            MONGO_PHRASE_DB: ${MONGO_PHRASE_DB}
-            MONGO_PHRASE_COL: ${MONGO_PHRASE_COL}
-            MONGO_HOST: ${MONGO_HOST}
-            MONGO_PORT: ${MONGO_PORT}
+            ARANGO_ROOT_PASSWORD: ${ARANGO_ROOT_PASSWORD}
+            ARANGO_DATABASE: ${ARANGO_DATABASE}
+            ARANGO_VERTEX_COLLECTION: ${ARANGO_VERTEX_COLLECTION}
+            ARANGO_EDGE_COLLECTION: ${ARANGO_EDGE_COLLECTION}
+            ARANGO_USER: ${ARANGO_USER}
+            ARANGO_PASS: ${ARANGO_PASS}
+            ARANGO_HOST: ${ARANGO_HOST}
+            ARANGO_PORT: ${ARANGO_PORT}
         ports:
-            - 27017:27017
+            - 8001:8529
         volumes:
-            - ./data/mongo:/data/db
-        # command: mongosh -u ${MONGO_INITDB_ROOT_USERNAME} -p ${MONGO_INITDB_ROOT_PASSWORD} --authenticationDatabase admin
-        # command: mongod --auth --port 27017
-
-
-    adminer:
-        image: dockette/adminer:mongo
-        ports:
-            - 8080:80
+            - ./data/arango:/var/lib/arangodb3

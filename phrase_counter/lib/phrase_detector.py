@@ -87,11 +87,11 @@ def phrase_counter(doc: str, doc_type: str = "text") -> Any:
     phrase_df["status"] = phrase_df.apply(
         lambda row: stop_word_detector(row["bag"]), axis=1
     )
-
-    # Converting result to JSON
-    json_result = phrase_df.to_dict(orient="records")
-
-    return json_result
+    # Counting number of words in each bag
+    phrase_df["length"] = phrase_df.apply(
+        lambda row: len(str(row["bag"]).split()), axis=1
+    )
+    return phrase_df
 
 
 def stop_word_detector(phrase: str) -> Optional[str]:
