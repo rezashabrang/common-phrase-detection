@@ -116,8 +116,8 @@ show_traceback = true
 color_output = true
 exclude = '''(?x)(
     data
-    |sandbox/,
-    setup.py
+    |sandbox/
+    |setup.py
 )'''
 
 allow_redefinition = false
