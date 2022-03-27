@@ -117,6 +117,7 @@ color_output = true
 exclude = '''(?x)(
     data
     |sandbox/,
+    setup.py
 )'''
 
 allow_redefinition = false
