@@ -27,4 +27,4 @@ COPY . /app
 
 # Final
 WORKDIR /app
-CMD ["uvicorn", "phrase_counter.main:app", "--host", "0.0.0.0", "--port", "80", "--reload"]
+CMD ["sleep", "infinity"]

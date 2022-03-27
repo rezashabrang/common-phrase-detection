@@ -6,36 +6,7 @@ services:
             dockerfile: Dockerfile.dev
             context: .
         image: phrase-counter
-        container_name: phrase_detector
-        environment:
-            MONGO_INITDB_ROOT_USERNAME: root
-            MONGO_INITDB_ROOT_PASSWORD: rootpass
-            MONGO_USERNAME: root
-            MONGO_PASSWORD: rootpass
-            MONGO_PHRASE_DB: phrase_db
-            MONGO_PHRASE_COL: common_phrase
-            MONGO_HOST: db
-            MONGO_PORT: 27017
-            API_KEY: 27def524e3f
+        container_name: phrase-counter
         volumes:
             - .:/app/
             - /app/.venv
-        ports:
-            - "8000:80"
-    phrase-db:
-        image: mongo
-        container_name: phrase-db
-        restart: always
-        environment:
-            MONGO_INITDB_ROOT_USERNAME: root
-            MONGO_INITDB_ROOT_PASSWORD: rootpass
-            MONGO_USERNAME: root
-            MONGO_PASSWORD: rootpass
-            MONGO_PHRASE_DB: phrase_db
-            MONGO_PHRASE_COL: common_phrase
-            MONGO_HOST: db
-            MONGO_PORT: 27017
-        ports:
-            - 27017:27017
-        volumes:
-            - ./data/mongo:/data/db

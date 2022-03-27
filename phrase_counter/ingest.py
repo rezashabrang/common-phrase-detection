@@ -2,13 +2,12 @@
 from typing import Any, Optional
 
 from hashlib import sha256
+from pathlib import Path
 
 import pandas as pd
 from sklearn.feature_extraction.text import CountVectorizer
 
-from .cleaner import cleaner, fetch_page_text
-
-from pathlib import Path
+from phrase_counter.cleaner import cleaner, fetch_page_text
 
 # ---------------------- Getting stop words list ----------------------
 STOP_PATH = f"{Path(__file__).parent}/static/stop-words.txt"
@@ -19,7 +18,7 @@ with open(STOP_PATH, "r", encoding="utf-8") as stop_file:
 STOP_LIST = list(map(str.strip, STOP_LIST))
 
 
-def phrase_counter(doc: str, doc_type: str = "text") -> Any:
+def ingest_doc(doc: str, doc_type: str = "text") -> Any:
     """Counting phrases in the document.
 
     Args:
@@ -74,14 +73,12 @@ def phrase_counter(doc: str, doc_type: str = "text") -> Any:
         phrase_df = pd.concat([phrase_df, temp_df])
 
     # Creating phrase hash
-    phrase_df["phrase_hash"] = phrase_df.apply(
+    phrase_df["_key"] = phrase_df.apply(
         lambda row: sha256(row["bag"].encode()).hexdigest(), axis=1
     )
 
     # Aggregating for removing duplicate values (rows with same hash or phrase)
-    phrase_df = phrase_df.groupby(["bag", "phrase_hash"]).agg(
-        {"count": "sum"}
-    ).reset_index()
+    phrase_df = phrase_df.groupby(["bag", "_key"]).agg({"count": "sum"}).reset_index()
 
     # Changing status to suggested stop for phrases that conatin stop words
     phrase_df["status"] = phrase_df.apply(
@@ -97,11 +94,11 @@ def phrase_counter(doc: str, doc_type: str = "text") -> Any:
 def stop_word_detector(phrase: str) -> Optional[str]:
     """Find stop phrases based on existing list of stop words.
 
-        Args:
-            phrase: text of the phrase.
+    Args:
+        phrase: text of the phrase.
 
-        Returns:
-            status if stop words are in phrase.
+    Returns:
+        status if stop words are in phrase.
     """
     # If there is any stop word in the phrase then it maybe a stop phrase
     if any(stop_word in phrase.split() for stop_word in STOP_LIST):

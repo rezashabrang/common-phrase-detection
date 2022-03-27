@@ -1,27 +1,28 @@
 """Tests for phrase detector module."""
+from random import sample
+
 import pytest
 
-from phrase_counter.lib.phrase_detector import phrase_counter
+from phrase_counter.ingest import ingest_doc
 
 
-def test_phrase_counter_return_true(test_page: str) -> None:
+def test_ingest_doc_return_true(test_page: str) -> None:
     """Testing that the phrase counter function returns something."""
-    output = phrase_counter(doc=test_page, doc_type="HTML")
+    output = ingest_doc(doc=test_page, doc_type="HTML")
 
     # asserts that the returned dataframe is not empty
-    assert output
+    assert any(output)
 
 
 def test_wrong_doc_type_arg(test_page: str) -> None:
-    """Testing wrong input for doc_type arg in phrase_counter."""
+    """Testing wrong input for doc_type arg in ingest_doc."""
     with pytest.raises(Exception):
-        phrase_counter(doc=test_page, doc_type="Wrong Arg")
+        ingest_doc(doc=test_page, doc_type="Wrong Arg")
 
 
 def test_check_keys_output(test_page: str) -> None:
     """Testing that relevent keys are in the output."""
-    output = phrase_counter(doc=test_page, doc_type="HTML")
-    sample_element = output[0]
-    assert all(
-        key in sample_element for key in ["bag", "phrase_hash", "count", "status"]
-    )
+    output = ingest_doc(doc=test_page, doc_type="HTML")
+    sample_element = list(output.columns)
+    print(sample_element)
+    assert all(key in sample_element for key in ["bag", "_key", "count", "status"])

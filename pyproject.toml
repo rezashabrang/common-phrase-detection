@@ -38,13 +38,10 @@ beautifulsoup4 = "*"
 requests = "*"
 scikit-learn = "*"
 pandas = "*"
-fastapi = "*"
-uvicorn = {version = "^0.15.0", extras = ["standard"]}
 python-multipart = "*"
 polyglot = "*"
 PyICU = "^2.8.1"
 pycld2 = "^0.41"
-python-arango = "*"
 
 
 [tool.poetry.dev-dependencies]
@@ -76,7 +73,6 @@ toml = "^0.10.2"
 pydantic = "*"
 types-requests = "*"
 openpyxl = "*"
-
 
 [tool.black]
 # https://github.com/psf/black
@@ -166,7 +162,6 @@ source = ['phrase_counter', 'tests']
 [tool.coverage.report]
 fail_under = 80
 show_missing = true
-omit = ["phrase_counter/main.py"]
 
 [coverage.paths]
 source = 'phrase_counter'

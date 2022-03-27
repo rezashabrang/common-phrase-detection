@@ -1,5 +1,5 @@
 """Tests for cleaner module."""
-from phrase_counter.lib.cleaner import cleaner, fetch_page_text
+from phrase_counter.cleaner import cleaner, fetch_page_text
 
 
 def test_fetch_html_returns_true():

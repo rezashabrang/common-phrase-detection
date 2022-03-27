@@ -7,35 +7,6 @@ services:
             context: .
         image: phrase-counter
         container_name: phrase-counter
-        environment:
-            ARANGO_ROOT_PASSWORD: ${ARANGO_ROOT_PASSWORD}
-            ARANGO_DATABASE: ${ARANGO_DATABASE}
-            ARANGO_VERTEX_COLLECTION: ${ARANGO_VERTEX_COLLECTION}
-            ARANGO_EDGE_COLLECTION: ${ARANGO_EDGE_COLLECTION}
-            ARANGO_USER: ${ARANGO_USER}
-            ARANGO_PASS: ${ARANGO_PASS}
-            ARANGO_HOST: ${ARANGO_HOST}
-            ARANGO_PORT: ${ARANGO_PORT}
-            API_KEY: ${API_KEY}
         volumes:
             - .:/app/
             - /app/.venv
-        ports:
-            - "8000:80"
-    phrase-db:
-        image: arangodb
-        container_name: phrase-db
-        restart: always
-        environment:
-            ARANGO_ROOT_PASSWORD: ${ARANGO_ROOT_PASSWORD}
-            ARANGO_DATABASE: ${ARANGO_DATABASE}
-            ARANGO_VERTEX_COLLECTION: ${ARANGO_VERTEX_COLLECTION}
-            ARANGO_EDGE_COLLECTION: ${ARANGO_EDGE_COLLECTION}
-            ARANGO_USER: ${ARANGO_USER}
-            ARANGO_PASS: ${ARANGO_PASS}
-            ARANGO_HOST: ${ARANGO_HOST}
-            ARANGO_PORT: ${ARANGO_PORT}
-        ports:
-            - 8001:8529
-        volumes:
-            - ./data/arango:/var/lib/arangodb3
