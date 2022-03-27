@@ -7,7 +7,7 @@ needs_pytest = {"ptr", "pytest", "test"}.intersection(sys.argv)
 pytest_runner = ["pytest-runner"] if needs_pytest else []
 
 setuptools.setup(
-    name="common-phrase-detection",
+    name="phrase-counter",
     version="0.1.0",
     author="Reza Shabrang",
     author_email="rezashabrang.m@gmail.com",
