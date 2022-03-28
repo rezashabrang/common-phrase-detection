@@ -9,26 +9,24 @@ from sklearn.feature_extraction.text import CountVectorizer
 
 from phrase_counter.cleaner import cleaner, fetch_page_text
 
-
 STOP_PATH = f"{Path(__file__).parent}/static/stop-words.txt"
 with open(STOP_PATH, "r", encoding="utf-8") as stop_file:
     STOP_LIST = stop_file.readlines()
-    
+
 # Removing newlines
 STOP_LIST = list(map(str.strip, STOP_LIST))
 
 
 def ingest_doc(
-    doc: str,
-    doc_type: str = "TEXT",
-    replace_stop: bool = False,
-    tag_stop: bool = False
+    doc: str, doc_type: str = "TEXT", replace_stop: bool = False, tag_stop: bool = False
 ) -> Any:
     """Counting phrases in the document.
 
     Args:
         doc: Document to be processed.
         doc_type: URL, TEXT, or HTML.
+        replace_stop: Whether to replace stop words or not
+        tag_stop: Whether to change status of stop words or not
 
     Returns:
         Dataframe with counts for each word.
