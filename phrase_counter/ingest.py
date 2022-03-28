@@ -9,16 +9,21 @@ from sklearn.feature_extraction.text import CountVectorizer
 
 from phrase_counter.cleaner import cleaner, fetch_page_text
 
-# ---------------------- Getting stop words list ----------------------
+
 STOP_PATH = f"{Path(__file__).parent}/static/stop-words.txt"
 with open(STOP_PATH, "r", encoding="utf-8") as stop_file:
     STOP_LIST = stop_file.readlines()
-
+    
 # Removing newlines
 STOP_LIST = list(map(str.strip, STOP_LIST))
 
 
-def ingest_doc(doc: str, doc_type: str = "text") -> Any:
+def ingest_doc(
+    doc: str,
+    doc_type: str = "TEXT",
+    replace_stop: bool = False,
+    tag_stop: bool = False
+) -> Any:
     """Counting phrases in the document.
 
     Args:
@@ -47,7 +52,7 @@ def ingest_doc(doc: str, doc_type: str = "text") -> Any:
     else:
         raise Exception("Unknown value for doc_type argument.")
 
-    cleaned_text = cleaner(dirty_text)
+    cleaned_text = cleaner(dirty_text, replace_stop=replace_stop, stop_list=STOP_LIST)
 
     # ----------------- Initialization -----------------
     phrase_df = pd.DataFrame(columns=["bag", "count"])
@@ -81,9 +86,11 @@ def ingest_doc(doc: str, doc_type: str = "text") -> Any:
     phrase_df = phrase_df.groupby(["bag", "_key"]).agg({"count": "sum"}).reset_index()
 
     # Changing status to suggested stop for phrases that conatin stop words
-    phrase_df["status"] = phrase_df.apply(
-        lambda row: stop_word_detector(row["bag"]), axis=1
-    )
+    phrase_df["status"] = None
+    if tag_stop:
+        phrase_df["status"] = phrase_df.apply(
+            lambda row: stop_word_detector(row["bag"]), axis=1
+        )
     # Counting number of words in each bag
     phrase_df["length"] = phrase_df.apply(
         lambda row: len(str(row["bag"]).split()), axis=1

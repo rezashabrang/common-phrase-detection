@@ -1,9 +1,11 @@
 """Cleaning dirty input text."""
 import re
+from typing import Optional
 
 import requests
 from bs4 import BeautifulSoup
 from cleaning_utils import clear_stop_char, replace_arabic_char
+from cleaning_utils import clear_stop_words
 from polyglot.detect import Detector
 
 
@@ -37,11 +39,16 @@ def fetch_page_text(url: str = "", webpage: str = "") -> str:
     return whole_page
 
 
-def cleaner(dirty_text: str) -> str:
+def cleaner(
+    dirty_text: str,
+    replace_stop: bool = False,
+    stop_list: Optional[list] = None
+) -> str:
     """Main function for cleaning.
 
     Args:
         dirty_text: Input dirty text
+        replace_stop: Whether to replace stop words or not
 
     Returns:
         Final text ready for integration in NLP algorithms.
@@ -61,6 +68,13 @@ def cleaner(dirty_text: str) -> str:
         processed_text,
         replace_char=".",
     )
+
+    if replace_stop:
+        processed_text = clear_stop_words(
+            text=processed_text,
+            stop_list=stop_list,
+            replace_char="."
+        )
 
     # ------------------- Trimmer phase -------------------
     processed_text = processed_text.replace("\t", " ").replace("\n", " ").strip()

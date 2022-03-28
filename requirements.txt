@@ -1,7 +1,7 @@
 beautifulsoup4==4.10.0; python_full_version > "3.0.0"
 certifi==2021.10.8; python_version >= "2.7" and python_full_version < "3.0.0" or python_full_version >= "3.6.0"
 charset-normalizer==2.0.12; python_full_version >= "3.6.0" and python_version >= "3"
-cleaning-utils==0.1.4; python_version >= "3.8" and python_version < "4.0"
+cleaning-utils==0.1.5; python_version >= "3.8" and python_version < "4.0"
 datetime==4.4; python_version >= "3.8" and python_version < "4.0"
 idna==3.3; python_version >= "3.5" and python_full_version < "3.0.0" or python_full_version >= "3.6.0" and python_version >= "3.5"
 joblib==1.1.0; python_version >= "3.7"
@@ -12,7 +12,6 @@ polyglot==16.7.4
 pycld2==0.41
 pyicu==2.8.1
 python-dateutil==2.8.2; python_version >= "3.8" and python_full_version < "3.0.0" and python_version < "4.0" or python_version >= "3.8" and python_version < "4.0" and python_full_version >= "3.3.0"
-python-multipart==0.0.5
 pytz==2022.1; python_version >= "3.8" and python_version < "4.0"
 requests==2.27.1; (python_version >= "2.7" and python_full_version < "3.0.0") or (python_full_version >= "3.6.0")
 scikit-learn==1.0.2; python_version >= "3.7"

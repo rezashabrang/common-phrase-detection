@@ -5,7 +5,7 @@ build-backend = "poetry.core.masonry.api"
 
 [tool.poetry]
 name = "phrase_counter"
-version = "0.1.0"
+version = "0.1.1"
 description = "Counting stop words."
 readme = "README.md"
 authors = ["aasaam <rezashabrang.m@gmail.com>"]
@@ -33,7 +33,7 @@ classifiers = [  #! Update me
 [tool.poetry.dependencies]
 python = "^3.8"
 importlib_metadata = {version = "^4.5.0", python = "<3.8"}
-cleaning-utils = "*"
+cleaning-utils = "^0.1.5"
 beautifulsoup4 = "*"
 requests = "*"
 scikit-learn = "*"

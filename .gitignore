@@ -135,3 +135,5 @@ dmypy.json
 
 # Exclusion for structuring API
 !/phrase_counter/lib
+
+sandbox/
