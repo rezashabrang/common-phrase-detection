@@ -54,7 +54,7 @@ jobs:
   build-n-publish:
     name: Build and publish common-phrase-detection package to PyPI
     if: startsWith(github.ref, 'refs/tags')
-    # needs: general-checks
+    needs: general-checks
     runs-on: ubuntu-18.04
     steps:
     - uses: actions/checkout@master
