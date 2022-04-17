@@ -74,6 +74,11 @@ def cleaner(
         processed_text = clear_stop_words(
             text=processed_text, stop_list=stop_list, replace_char="."  # type: ignore
         )
+    # ------------------- HTML Stripper -------------------
+    processed_text = re.sub('<[^<]+?>', '', processed_text)
+    processed_text = re.sub(
+        '&([a-z0-9]+|#[0-9]{1,6}|#x[0-9a-fA-F]{1,6});', '', processed_text
+    )
 
     # ------------------- Trimmer phase -------------------
     processed_text = processed_text.replace("\t", " ").replace("\n", " ").strip()
