@@ -25,9 +25,18 @@ jobs:
       run: |
         make install
 
+    - name: Run tests
+      run: |
+        make test
+
+    - name: Check coverage
+      run: |
+        make coverage
+
     - name: Run style checks
       run: |
         make check-codestyle
+      continue-on-error: true
 
     - name: Run safety checks
       run: |
@@ -37,18 +46,22 @@ jobs:
     - name: Run mypy checks
       run: |
         make mypy
+      continue-on-error: true
 
     - name: Run complexity
       run: |
         make complexity
+      continue-on-error: true
 
     - name: Run maintainability
       run: |
         make maintainability
+      continue-on-error: true
 
     - name: Run interrogate
       run: |
         make interrogate
+      continue-on-error: true
 
 
   build-n-publish:
