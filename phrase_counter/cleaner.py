@@ -54,16 +54,19 @@ def cleaner(
     Returns:
         Final text ready for integration in NLP algorithms.
     """
+    # ------------------- HTML Stripper -------------------
+    processed_text = re.sub('<[^<]+?>', '', dirty_text)
+    processed_text = re.sub(
+        '&([a-z0-9]+|#[0-9]{1,6}|#x[0-9a-fA-F]{1,6});', '', processed_text
+    )
     # ------------------- Langugae detection -------------------
-    detector = Detector(dirty_text)
+    detector = Detector(processed_text)
     lang = detector.language.code
     # ------------------- Linguistic phase -------------------
     if lang == "fa":
-        processed_text = replace_arabic_char(dirty_text)
+        processed_text = replace_arabic_char(processed_text)
     elif lang == "ar":
-        processed_text = replace_arabic_char(dirty_text, letter=False)
-    else:
-        processed_text = dirty_text
+        processed_text = replace_arabic_char(processed_text, letter=False)
 
     processed_text = clear_stop_char(
         processed_text,
@@ -74,12 +77,7 @@ def cleaner(
         processed_text = clear_stop_words(
             text=processed_text, stop_list=stop_list, replace_char="."  # type: ignore
         )
-    # ------------------- HTML Stripper -------------------
-    processed_text = re.sub('<[^<]+?>', '', processed_text)
-    processed_text = re.sub(
-        '&([a-z0-9]+|#[0-9]{1,6}|#x[0-9a-fA-F]{1,6});', '', processed_text
-    )
-
+        
     # ------------------- Trimmer phase -------------------
     processed_text = processed_text.replace("\t", " ").replace("\n", " ").strip()
     processed_text = processed_text.replace("\u200c", " ")  # Nim-fasele

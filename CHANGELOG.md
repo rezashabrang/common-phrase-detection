@@ -1,6 +1,11 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [0.1.3] - 2022-04-20
+### Fixed
+- HTML stripper not working properly
+
+
 ## [0.1.2] - 2022-04-17
 ### Added
 - HTML stripper & cleaner regex
