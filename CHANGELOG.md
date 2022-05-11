@@ -1,6 +1,10 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [0.1.4] - 2022-05-11
+### Changed
+- Updating stop words list
+
 ## [0.1.3] - 2022-04-20
 ### Fixed
 - HTML stripper not working properly
