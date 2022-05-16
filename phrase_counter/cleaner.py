@@ -2,6 +2,7 @@
 from typing import Iterable, Optional
 
 import re
+from html import unescape
 
 import requests
 from bs4 import BeautifulSoup
@@ -55,10 +56,8 @@ def cleaner(
         Final text ready for integration in NLP algorithms.
     """
     # ------------------- HTML Stripper -------------------
-    processed_text = re.sub('<[^<]+?>', '', dirty_text)
-    processed_text = re.sub(
-        '&([a-z0-9]+|#[0-9]{1,6}|#x[0-9a-fA-F]{1,6});', '', processed_text
-    )
+    processed_text = re.sub("<[^<]+?>", "", dirty_text)
+    processed_text = unescape(processed_text)
     # ------------------- Langugae detection -------------------
     detector = Detector(processed_text)
     lang = detector.language.code
@@ -77,7 +76,7 @@ def cleaner(
         processed_text = clear_stop_words(
             text=processed_text, stop_list=stop_list, replace_char="."  # type: ignore
         )
-        
+
     # ------------------- Trimmer phase -------------------
     processed_text = processed_text.replace("\t", " ").replace("\n", " ").strip()
     processed_text = processed_text.replace("\u200c", " ")  # Nim-fasele
