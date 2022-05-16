@@ -1,6 +1,10 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [0.1.5] - 2022-05-16
+### Changed
+- Unescaping html entities instead of using regex.
+
 ## [0.1.4] - 2022-05-11
 ### Changed
 - Updating stop words list
