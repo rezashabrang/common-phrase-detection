@@ -1,13 +1,40 @@
 """Cleaning dirty input text."""
-from typing import Iterable, Optional
+from io import StringIO
 
 import re
-from html import unescape
+from html.parser import HTMLParser
 
 import requests
 from bs4 import BeautifulSoup
-from cleaning_utils import clear_stop_char, clear_stop_words, replace_arabic_char
+from cleaning_utils import clear_stop_char, replace_arabic_char
 from polyglot.detect import Detector
+from polyglot.detect.base import UnknownLanguage
+
+
+class MLStripper(HTMLParser):
+    """Class for cleaning HTML"""
+
+    def __init__(self):
+        super().__init__()
+        self.reset()
+        self.strict = False
+        self.convert_charrefs = True
+        self.text = StringIO()
+
+    def handle_data(self, data):
+        """Data Handling"""
+        self.text.write(data)
+
+    def get_data(self):
+        """Getting stripped text."""
+        return self.text.getvalue()
+
+
+def strip_tags(html: str) -> str:
+    """Strip HTML tags"""
+    s = MLStripper()
+    s.feed(html)
+    return s.get_data()
 
 
 def fetch_page_text(url: str = "", webpage: str = "") -> str:
@@ -43,7 +70,7 @@ def fetch_page_text(url: str = "", webpage: str = "") -> str:
 def cleaner(
     dirty_text: str,
     replace_stop: bool = False,
-    stop_list: Optional[Iterable[str]] = None,
+    # stop_list: Optional[Iterable[str]] = None,
 ) -> str:
     """Main function for cleaning.
 
@@ -56,11 +83,13 @@ def cleaner(
         Final text ready for integration in NLP algorithms.
     """
     # ------------------- HTML Stripper -------------------
-    processed_text = re.sub("<[^<]+?>", "", dirty_text)
-    processed_text = unescape(processed_text)
+    processed_text = strip_tags(dirty_text)
     # ------------------- Langugae detection -------------------
-    detector = Detector(processed_text)
-    lang = detector.language.code
+    try:
+        detector = Detector(processed_text)
+        lang = detector.language.code
+    except UnknownLanguage:
+        lang = ""
     # ------------------- Linguistic phase -------------------
     if lang == "fa":
         processed_text = replace_arabic_char(processed_text)
@@ -72,10 +101,10 @@ def cleaner(
         replace_char=".",
     )
 
-    if replace_stop:
-        processed_text = clear_stop_words(
-            text=processed_text, stop_list=stop_list, replace_char="."  # type: ignore
-        )
+    # if replace_stop:
+    #     processed_text = clear_stop_words(
+    #         text=processed_text, stop_list=stop_list, replace_char="."  # type: ignore
+    #     )
 
     # ------------------- Trimmer phase -------------------
     processed_text = processed_text.replace("\t", " ").replace("\n", " ").strip()

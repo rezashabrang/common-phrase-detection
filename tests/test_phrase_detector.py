@@ -1,6 +1,4 @@
 """Tests for phrase detector module."""
-from random import sample
-
 import pytest
 
 from phrase_counter.ingest import ingest_doc
@@ -25,4 +23,4 @@ def test_check_keys_output(test_page: str) -> None:
     output = ingest_doc(doc=test_page, doc_type="HTML")
     sample_element = list(output.columns)
     print(sample_element)
-    assert all(key in sample_element for key in ["bag", "_key", "count", "status"])
+    assert all(key in sample_element for key in ["bag", "_key", "count"])

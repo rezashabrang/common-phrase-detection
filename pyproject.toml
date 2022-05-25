@@ -162,6 +162,7 @@ source = ['phrase_counter', 'tests']
 [tool.coverage.report]
 fail_under = 80
 show_missing = true
+omit = ["phrase_counter/ingest_bench.py"]
 
 [coverage.paths]
 source = 'phrase_counter'

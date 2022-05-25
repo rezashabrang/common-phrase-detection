@@ -137,3 +137,4 @@ dmypy.json
 !/phrase_counter/lib
 
 sandbox/
+/phrase_counter/ingest_bench.py
