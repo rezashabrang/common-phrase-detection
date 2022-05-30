@@ -1,6 +1,10 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [0.1.8] - 2022-05-30
+### Changed
+- ngram range.
+
 ## [0.1.7] - 2022-05-30
 ### Added
 - Frequent phrase remover.

@@ -19,7 +19,7 @@ from phrase_counter.cleaner import cleaner, fetch_page_text
 def ingest_doc(
     doc: str,
     doc_type: str = "TEXT",
-    replace_stop: bool = False,
+    ngram_range=(1, 5),
     remove_stop_regex=None,
     remove_highlight_regex=None
 ) -> Any:
@@ -28,7 +28,6 @@ def ingest_doc(
     Args:
         doc: Document to be processed.
         doc_type: URL, TEXT, or HTML.
-        replace_stop: Whether to replace stop words or not
         tag_stop: Whether to change status of stop words or not
 
     Returns:
@@ -65,7 +64,9 @@ def ingest_doc(
     for text_part in cleaned_text.split("."):
         # ----------------- Counter Section -----------------
         # Initializing vector
-        count_vector = CountVectorizer(ngram_range=(1, 5), encoding="utf-8")
+        count_vector = CountVectorizer(
+            ngram_range=(ngram_range[0], ngram_range[1]), encoding="utf-8"
+        )
         try:
             # Fit on text
             count_data = count_vector.fit_transform([text_part])

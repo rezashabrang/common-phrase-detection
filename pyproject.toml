@@ -5,7 +5,7 @@ build-backend = "poetry.core.masonry.api"
 
 [tool.poetry]
 name = "phrase_counter"
-version = "0.1.7"
+version = "0.1.8"
 description = "Counting stop words."
 readme = "README.md"
 authors = ["aasaam <rezashabrang.m@gmail.com>"]
