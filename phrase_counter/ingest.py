@@ -17,7 +17,11 @@ from phrase_counter.cleaner import cleaner, fetch_page_text
 
 
 def ingest_doc(
-    doc: str, doc_type: str = "TEXT", replace_stop: bool = False, tag_stop: bool = False
+    doc: str,
+    doc_type: str = "TEXT",
+    replace_stop: bool = False,
+    remove_stop_regex=None,
+    remove_highlight_regex=None
 ) -> Any:
     """Counting phrases in the document.
 
@@ -49,7 +53,11 @@ def ingest_doc(
     else:
         raise Exception("Unknown value for doc_type argument.")
 
-    cleaned_text = cleaner(dirty_text, replace_stop=replace_stop)
+    cleaned_text = cleaner(
+        dirty_text,
+        remove_stop_regex=remove_stop_regex,
+        remove_highlight_regex=remove_highlight_regex
+    )
 
     bags_list = []
     counts_list = []

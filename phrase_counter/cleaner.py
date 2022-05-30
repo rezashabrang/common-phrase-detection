@@ -69,7 +69,8 @@ def fetch_page_text(url: str = "", webpage: str = "") -> str:
 
 def cleaner(
     dirty_text: str,
-    replace_stop: bool = False,
+    remove_stop_regex=None,
+    remove_highlight_regex=None
     # stop_list: Optional[Iterable[str]] = None,
 ) -> str:
     """Main function for cleaning.
@@ -101,14 +102,25 @@ def cleaner(
         replace_char=".",
     )
 
-    # if replace_stop:
-    #     processed_text = clear_stop_words(
-    #         text=processed_text, stop_list=stop_list, replace_char="."  # type: ignore
-    #     )
-
     # ------------------- Trimmer phase -------------------
     processed_text = processed_text.replace("\t", " ").replace("\n", " ").strip()
     processed_text = processed_text.replace("\u200c", " ")  # Nim-fasele
+    processed_text = re.sub(" +", " ", processed_text)  # space cleaner
+    processed_text = processed_text.strip()
+
+    # --------------------- Remove frequents ---------------------
+    if remove_stop_regex:
+        for i in remove_stop_regex:
+            processed_text = re.sub(
+                remove_stop_regex[i], "", processed_text
+            )
+
+    if remove_highlight_regex:
+        for i in remove_highlight_regex:
+            processed_text = re.sub(
+                remove_highlight_regex[i], "", processed_text
+            )
+
     processed_text = re.sub(" +", " ", processed_text)  # space cleaner
     processed_text = processed_text.strip()
 

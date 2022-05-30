@@ -8,7 +8,7 @@ pytest_runner = ["pytest-runner"] if needs_pytest else []
 
 setuptools.setup(
     name="phrase-counter",
-    version="0.1.6",
+    version="0.1.7",
     author="Reza Shabrang",
     author_email="rezashabrang.m@gmail.com",
     url="https://github.com/rezashabrang/common-phrase-detection",

@@ -1,6 +1,10 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [0.1.7] - 2022-05-30
+### Added
+- Frequent phrase remover.
+
 ## [0.1.6] - 2022-05-25
 ### Changed
 - Using python parser for html stripping.
