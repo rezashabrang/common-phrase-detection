@@ -1,6 +1,10 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [0.2.0] - 2022-05-31
+### Added
+- Word graph generator.
+
 ## [0.1.8] - 2022-05-30
 ### Changed
 - ngram range.
