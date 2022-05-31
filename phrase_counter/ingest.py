@@ -1,5 +1,5 @@
 """Main functions for counting phrases."""
-from typing import Any
+from typing import Any, List, Optional, Tuple
 
 from hashlib import sha256
 
@@ -8,27 +8,22 @@ from sklearn.feature_extraction.text import CountVectorizer
 
 from phrase_counter.cleaner import cleaner, fetch_page_text
 
-# STOP_PATH = f"{Path(__file__).parent}/static/stop-words.txt"
-# with open(STOP_PATH, "r", encoding="utf-8") as stop_file:
-#     STOP_LIST = stop_file.readlines()
-
-# # Removing newlines
-# STOP_LIST = list(map(str.strip, STOP_LIST))
-
 
 def ingest_doc(
     doc: str,
     doc_type: str = "TEXT",
-    ngram_range=(1, 5),
-    remove_stop_regex=None,
-    remove_highlight_regex=None
+    ngram_range: Tuple[int, int] = (1, 5),
+    remove_stop_regex: Optional[List[Any]] = None,
+    remove_highlight_regex: Optional[List[Any]] = None,
 ) -> Any:
     """Counting phrases in the document.
 
     Args:
         doc: Document to be processed.
         doc_type: URL, TEXT, or HTML.
-        tag_stop: Whether to change status of stop words or not
+        ngram_range: Determining bag of words length.
+        remove_stop_regex: Regex for removing stop phrases.
+        remove_highlight_regex: Regex for removing highlight phrases.
 
     Returns:
         Dataframe with counts for each word.
@@ -55,7 +50,7 @@ def ingest_doc(
     cleaned_text = cleaner(
         dirty_text,
         remove_stop_regex=remove_stop_regex,
-        remove_highlight_regex=remove_highlight_regex
+        remove_highlight_regex=remove_highlight_regex,
     )
 
     bags_list = []

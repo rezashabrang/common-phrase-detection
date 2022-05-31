@@ -1,8 +1,9 @@
 """Cleaning dirty input text."""
-from io import StringIO
+from typing import Any, List, Optional
 
 import re
 from html.parser import HTMLParser
+from io import StringIO
 
 import requests
 from bs4 import BeautifulSoup
@@ -30,7 +31,7 @@ class MLStripper(HTMLParser):
         return self.text.getvalue()
 
 
-def strip_tags(html: str) -> str:
+def strip_tags(html: str) -> Any:
     """Strip HTML tags"""
     s = MLStripper()
     s.feed(html)
@@ -69,16 +70,16 @@ def fetch_page_text(url: str = "", webpage: str = "") -> str:
 
 def cleaner(
     dirty_text: str,
-    remove_stop_regex=None,
-    remove_highlight_regex=None
+    remove_stop_regex: Optional[List[Any]] = None,
+    remove_highlight_regex: Optional[List[Any]] = None
     # stop_list: Optional[Iterable[str]] = None,
 ) -> str:
     """Main function for cleaning.
 
     Args:
         dirty_text: Input dirty text
-        replace_stop: Whether to replace stop words or not
-        stop_list: list of stop words
+        remove_stop_regex: Regex for removing stop phrases
+        remove_highlight_regex: Regex for removing highlight phrases
 
     Returns:
         Final text ready for integration in NLP algorithms.
@@ -111,15 +112,11 @@ def cleaner(
     # --------------------- Remove frequents ---------------------
     if remove_stop_regex:
         for i in remove_stop_regex:
-            processed_text = re.sub(
-                remove_stop_regex[i], "", processed_text
-            )
+            processed_text = re.sub(remove_stop_regex[i], "", processed_text)
 
     if remove_highlight_regex:
         for i in remove_highlight_regex:
-            processed_text = re.sub(
-                remove_highlight_regex[i], "", processed_text
-            )
+            processed_text = re.sub(remove_highlight_regex[i], "", processed_text)
 
     processed_text = re.sub(" +", " ", processed_text)  # space cleaner
     processed_text = processed_text.strip()
