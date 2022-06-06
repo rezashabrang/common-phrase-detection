@@ -1,6 +1,10 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [0.2.1] - 2022-06-06
+### Fixed
+- Cleaner function for unicode html entities.
+
 ## [0.2.0] - 2022-05-31
 ### Added
 - Word graph generator.
