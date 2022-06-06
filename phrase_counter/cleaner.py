@@ -106,6 +106,7 @@ def cleaner(
     # ------------------- Trimmer phase -------------------
     processed_text = processed_text.replace("\t", " ").replace("\n", " ").strip()
     processed_text = processed_text.replace("\u200c", " ")  # Nim-fasele
+    processed_text = processed_text.replace("\u200f", " ")  # RTL
     processed_text = processed_text.replace("\xa0", " ")  # nbsp
     processed_text = processed_text.replace("\xad", " ")  # nbsp
     processed_text = processed_text.replace("\r", " ")  # \r
