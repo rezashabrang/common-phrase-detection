@@ -22,9 +22,11 @@ def generate_word_graph(doc: str) -> Any:
         # Generating words
         words = text_part.strip().split(" ")
 
+        words = [word for word in words if word != ""]  # Removing empty string
+
         # Hashing words
         hashed_words = [
-            sha256(word.encode()).hexdigest() for word in words if word != ""
+            sha256(word.encode()).hexdigest() for word in words
         ]
         # Creating words relation
         from_rel = hashed_words[: len(hashed_words) - 1]
