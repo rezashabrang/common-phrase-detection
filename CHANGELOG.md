@@ -1,6 +1,10 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [0.2.4] - 2022-06-7
+### Changed
+- Handling empty string in word graph.
+
 ## [0.2.3] - 2022-06-06
 ### Fixed
 - Cleaner function for unicode html entities (\u200f unicode char).

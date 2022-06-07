@@ -64,7 +64,7 @@ def ingest_doc(
         )
         try:
             # Fit on text
-            count_data = count_vector.fit_transform([text_part])
+            count_data = count_vector.fit_transform([text_part.strip()])
         except ValueError:
             continue
         # ----------------- Extending data -----------------

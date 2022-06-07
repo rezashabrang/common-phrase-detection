@@ -20,11 +20,12 @@ def generate_word_graph(doc: str) -> Any:
     # -------------------- Generating Graphs --------------------
     for text_part in cleaned_text.split("."):
         # Generating words
-        words = text_part.split(" ")
+        words = text_part.strip().split(" ")
 
         # Hashing words
-        hashed_words = [sha256(word.encode()).hexdigest() for word in words]
-
+        hashed_words = [
+            sha256(word.encode()).hexdigest() for word in words if word != ""
+        ]
         # Creating words relation
         from_rel = hashed_words[: len(hashed_words) - 1]
         to_rel = hashed_words[1:]
