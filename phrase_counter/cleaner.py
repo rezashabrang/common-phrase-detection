@@ -12,32 +12,6 @@ from polyglot.detect import Detector
 from polyglot.detect.base import UnknownLanguage
 
 
-class MLStripper(HTMLParser):
-    """Class for cleaning HTML"""
-
-    def __init__(self):
-        super().__init__()
-        self.reset()
-        self.strict = False
-        self.convert_charrefs = True
-        self.text = StringIO()
-
-    def handle_data(self, data):
-        """Data Handling"""
-        self.text.write(data)
-
-    def get_data(self):
-        """Getting stripped text."""
-        return self.text.getvalue()
-
-
-def strip_tags(html: str) -> Any:
-    """Strip HTML tags"""
-    s = MLStripper()
-    s.feed(html)
-    return s.get_data()
-
-
 def fetch_page_text(url: str = "", webpage: str = "") -> str:
     """Getting html pages from urls & fetching needed elements of the page.
 
@@ -85,7 +59,7 @@ def cleaner(
         Final text ready for integration in NLP algorithms.
     """
     # ------------------- HTML Stripper -------------------
-    processed_text = strip_tags(dirty_text)
+    processed_text = BeautifulSoup(dirty_text, features="html.parser").get_text()
     # ------------------- Langugae detection -------------------
     try:
         detector = Detector(processed_text)
@@ -104,12 +78,10 @@ def cleaner(
     )
 
     # ------------------- Trimmer phase -------------------
-    processed_text = processed_text.replace("\t", " ").replace("\n", " ").strip()
-    processed_text = processed_text.replace("\u200c", " ")  # Nim-fasele
-    processed_text = processed_text.replace("\u200f", " ")  # RTL
-    processed_text = processed_text.replace("\xa0", " ")  # nbsp
-    processed_text = processed_text.replace("\xad", " ")  # nbsp
-    processed_text = processed_text.replace("\r", " ")  # \r
+    trim_pattern = re.compile(
+        "\t|\n|\u200c|\u200f|\u200e|\xa0|\xad|\r"
+    )
+    processed_text = re.sub(trim_pattern, " ", processed_text)
     processed_text = re.sub(" +", " ", processed_text)  # space cleaner
     processed_text = processed_text.strip()
 
