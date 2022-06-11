@@ -1,6 +1,12 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [0.2.6] - 2022-06-11
+### Fixed
+- Switching to beautiful soup for cleaning.
+### Changed
+- Merging trimmer part.
+
 ## [0.2.5] - 2022-06-7
 ### Fixed
 - Handling empty string in word graph.
